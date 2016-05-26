@@ -1,0 +1,69 @@
+﻿@using Final_eshop_xincunli.Models
+@model Final_eshop_xincunli.Models.Member
+@{
+    ViewBag.Title = "Member Register";
+}
+<div class="account-form">
+    <h2>Member Register</h2>
+    <img src="/Image/Register.png" />
+    @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+    {
+        <h3>Something was wrong.</h3>
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Register Error</strong>
+            @Html.ValidationSummary(true, "Errors: ")
+        </div>
+    }
+    @using (Html.BeginForm("Register", "Member", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        
+
+
+        <h3>Please enter member information.</h3>
+        <div class="editor">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", data_val_email = "Please enter email" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => x.Role, SelectListItemHelper.roles, "Select the Role", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="display-block">
+            <input type="submit" value="Register" class="btn btn-primary" />
+        </div>
+    }
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

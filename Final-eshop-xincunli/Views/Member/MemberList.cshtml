@@ -1,0 +1,37 @@
+﻿@model List<Final_eshop_xincunli.Models.Member>
+@{
+    ViewBag.Title = "Membership";
+}
+<h2>Members List</h2>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Member Id</th>
+            <th>Member Name</th>
+            <th>Member EMail</th>
+            <th>Registe Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(m.Id.ToString(), "MemberInfo", new { id = m.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.RegisterDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

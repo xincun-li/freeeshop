@@ -1,0 +1,59 @@
+﻿using Final_eshop_xincunli.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Final_eshop_xincunli.Models
+{
+    public class MemberManage
+    {
+        public static int Create(MemberDTO m)
+        {
+            using (var db = new ShopContext())
+            {
+                Member mm = db.MemberShips.Create();
+                mm.Name = m.Name;
+                mm.Email = m.Email;
+                mm.Password = m.Password;
+                mm.ConfirmPassword = m.Password;
+                mm.Role = m.Role == 2 ? Role.Admin : Role.Basic;
+                db.MemberShips.Add(mm);
+                db.SaveChanges();
+                return mm.Id;
+            }
+        }
+
+        public static List<Member> GetAllMembers()
+        {
+            using (var db = new ShopContext())
+            {
+                var query = from u in db.MemberShips
+                            orderby u.RegisterDate descending
+                            select u;
+
+                return new List<Member>(query);
+            }
+        }
+
+        public static Member Get(int Id)
+        {
+            using (var db = new ShopContext())
+            {
+                var user = (from u in db.MemberShips
+                            where u.Id == Id
+                            select u).FirstOrDefault();
+                return user;
+            }
+        }
+
+        public static Member Get(string email)
+        {
+            using (var db = new ShopContext())
+            {
+                var user = (from u in db.MemberShips
+                            where u.Email == email
+                            select u).FirstOrDefault();
+                return user;
+            }
+        }
+    }
+}

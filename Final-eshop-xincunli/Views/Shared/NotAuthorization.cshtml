@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "NotAuthorization";
+}
+<p class="error-message">
+    @if (ViewData["errorMessage"] == null)
+    {
+        @:Sorry, you cannot using this pages, please login as Seller.
+    }
+    else
+    {
+        @ViewData["errorMessage"].ToString()
+    }
+</p>

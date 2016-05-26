@@ -1,0 +1,46 @@
+﻿@model Final_eshop_xincunli.Models.Member
+@{
+    var username = Model != null ? Model.Email : "Unknown User";
+    ViewBag.Title = "Member Info: " + username;
+}
+
+<h2>User: @username.</h2>
+
+<h4>Member info.</h4>
+@if (Model == null)
+{
+<div class="alert alert-danger" role="alert">
+    <strong>User not found!</strong>
+    The user you request can't be found!
+</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Member Infomation</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(m => m.Id, new { @class = "col-md-2 control-label" })</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.RegisterDate, new { @class = "col-md-2 control-label" })</td>
+                <td>@Model.RegisterDate</td>
+            </tr>
+        </tbody>
+    </table>
+
+}

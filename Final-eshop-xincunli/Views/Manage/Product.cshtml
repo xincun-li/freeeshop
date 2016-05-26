@@ -1,0 +1,313 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>My Product Store</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/grid-0.4.3.min.css" rel="stylesheet" type="text/css">
+
+    <script src="~/Scripts/jquery-2.2.3.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/grid-0.4.3.min.js" type="text/javascript"></script>
+
+    <style>
+        .clearable {
+            background: #fff url(http://i.stack.imgur.com/mJotv.gif) no-repeat right -10px center;
+            border: 1px solid #999;
+            padding: 3px 18px 3px 4px; /* Use the same right padding (18) in jQ! */
+            border-radius: 3px;
+            transition: background 0.4s;
+        }
+
+            .clearable.x {
+                background-position: right 5px center;
+            }
+            /* (jQ) Show icon */
+            .clearable.onX {
+                cursor: pointer;
+            }
+            /* (jQ) hover cursor style */
+            .clearable::-ms-clear {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+        /* Remove IE default X */
+    </style>
+    <script type="text/javascript">
+        var grid;
+        function Add() {
+            $("#ProductId").val("");
+            $("#Category").val("");
+            $("#ProductName").val("");
+            $("#ProductPrice").val("");
+            $("#ProductCount").val("");
+            $("#ProductSEOName").val("");
+            $("#Discount").val("");
+            $("#Tax").val("");
+            $("#productModal").modal("show");
+        }
+
+        function View(e) {
+            $.ajax({
+                url: "/api/Product/" + e.data.id, type: "Get"
+            })
+                .done(function (data) {
+                    $("#btnSave").hide();
+                    $("#ProductId").val(data.ProductId);
+                    $("#ProductName").val(data.ProductName);
+                    $("#Category").val(data.Category);
+                    $("#ProductPrice").val(data.ProductPrice);
+                    $("#ProductCount").val(data.ProductCount);
+                    $("#ProductSEOName").val(data.ProductSEOName);
+                    $("#Discount").val(data.Discount);
+                    $("#Tax").val(data.Tax);
+                    $("#productModal").modal("show");
+                })
+                .fail(function () {
+                    alert("Failed to load product.");
+                    $("#productModal").modal("hide");
+                });
+        }
+
+        function Edit(e) {
+            $("#btnSave").show();
+            $("#ProductId").val(e.data.id);
+            $("#ProductName").val(e.data.record.ProductName);
+            $("#Category").val(e.data.record.Category);
+            $("#ProductPrice").val(e.data.record.ProductPrice);
+            $("#ProductCount").val(e.data.record.ProductCount);
+            $("#ProductSEOName").val(e.data.ProductSEOName);
+            $("#Discount").val(e.data.Discount);
+            $("#Tax").val(e.data.Tax);
+            $("#productModal").modal("show");
+        }
+        function Save() {
+            $.ajax({
+                url: "/api/Product/", type: "Post", data: {
+                    ProductId: $("#ProductId").val(),
+                    ProductName: $("#ProductName").val(),
+                    Category: $("#Category").val(),
+                    ProductPrice: $("#ProductPrice").val(),
+                    ProductCount: $("#ProductCount").val(),
+                    ProductSEOName: $("#ProductSEOName").val(),
+                    Discount: $("#Discount").val(),
+                    Tax: $("#Tax").val()
+                }
+            })
+                .done(function () {
+                    grid.reload();
+                    $("#productModal").modal("hide");
+                })
+                .fail(function () {
+                    alert("Failed to save.");
+                    $("#productModal").modal("hide");
+                });
+        }
+        function Remove(e) {
+            $.ajax({
+                url: "/api/Product/" + e.data.id, type: "DELETE"
+            })
+                .done(function () {
+                    grid.reload();
+                })
+                .fail(function () {
+                    alert("Unable to remove.");
+                });
+        }
+
+        function ShowImage(e) {
+            $.ajax({
+                url: "/api/Product/" + e.data.id, type: "Get"
+            })
+                .done(function (data) {
+                    $("#ProductId2").val(data.ProductId);
+                    $("#ImagePath").attr("src", "/Content/Uploads/" + data.ImagePath);
+                    $("#productImageModal").modal("show");
+                })
+                .fail(function () {
+                    alert("Failed to load product.");
+                    $("#productImageModal").modal("hide");
+                });
+        }
+
+        function Upload() {
+            var files = $("#UploadProductImage").get(0).files;
+            if (files.length > 0) {
+                var form = new FormData();
+                form.append("files", files[0]);
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "/api/Upload/" + $("#ProductId2").val(),
+                    "method": "POST",
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+
+                    $("#ImagePath").attr("src", "/Content/Uploads/" + $.parseJSON(response).message);
+                });
+                $("#productImageModal").modal("hide");
+            }
+        }
+
+        function Search() {
+            grid.reload({ searchString: $("#search").val() });
+        }
+
+        $(document).ready(function () {
+            grid = $("#grid").grid({
+                dataKey: "ProductId",
+                uiLibrary: "bootstrap",
+                columns: [
+                    { field: "ProductId", width: 100, sortable: true },
+                    { field: "ProductName", title: "Product Name", sortable: true },
+                    { field: "ProductSEOName", title: "SEO Name", sortable: true },
+                    { field: "Category", title: "Category", sortable: true },
+                    { field: "ProductPrice", title: "Product Price", sortable: true },
+                    { field: "ProductCount", title: "Product Count", sortable: true },
+                    { field: "Discount", title: "Product Price", sortable: true },
+                    { field: "Tax", title: "Product Count", sortable: true },
+                    { title: "Upload", field: "Upload", width: 60, type: "icon", icon: "glyphicon-camera", tooltip: "Image", events: { "click": ShowImage } },
+                    { title: "View", field: "View", width: 54, type: "icon", icon: "glyphicon-zoom-in", tooltip: "View", events: { "click": View } },
+                    { title: "Edit", field: "Edit", width: 54, type: "icon", icon: "glyphicon-pencil", tooltip: "Edit", events: { "click": Edit } },
+                    { title: "Delete", field: "Delete", width: 54, type: "icon", icon: "glyphicon-remove", tooltip: "Delete", events: { "click": Remove } }
+                ],
+                pager: { enable: true, limit: 20, sizes: [5, 10, 20, 100] }
+            });
+            $("#btnAddProduct").on("click", Add);
+            $("#btnSave").on("click", Save);
+            $("#btnUpload").on("click", Upload);
+            $("#btnSearch").on("click", Search);
+        });
+
+        function preview(input) {
+
+            if (FileReader && input.files && input.files[0]) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    $('#ImagePath').attr('src', fr.result);
+                }
+                fr.readAsDataURL(input.files[0]);
+            } 
+        }
+
+        function tog(v) { return v ? 'addClass' : 'removeClass'; }
+        $(document).on('input', '.clearable', function () {
+            $(this)[tog(this.value)]('x');
+        }).on('mousemove', '.x', function (e) {
+            $(this)[tog(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]('onX');
+        }).on('touchstart click', '.onX', function (ev) {
+            ev.preventDefault();
+            $(this).removeClass('x onX').val('').change();
+        });
+    </script>
+
+</head>
+<body>
+
+    <div class="container fill">
+        <h2>My Product Store</h2>
+        <br />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control clearable" placeholder="Search by category...">
+                    <span class="input-group-btn">
+                        <button type="button" id="btnSearch" class="btn btn-default">Go!</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <button type="button" id="btnAddProduct" class="btn btn-default pull-right">Add New product</button>
+            </div>
+        </div>
+        <br />
+        <table id="grid" data-source="@Url.Action("GetProducts")"></table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">product</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="ProductId" />
+                        <div class="form-group">
+                            <label for="ProductName">Product Name</label>
+                            <input type="text" class="form-control" id="ProductName" placeholder="Enter Product Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductName">Product SEO Name</label>
+                            <input type="text" class="form-control" id="ProductSEOName" placeholder="Enter Product SEO Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="Category">Category</label>
+                            <input type="text" class="form-control" id="Category" placeholder="Enter Category">
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductPrice">Product Price</label>
+                            <input type="text" class="form-control" id="ProductPrice" placeholder="Enter Product Price">
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductCount">Product Count</label>
+                            <input type="text" class="form-control" id="ProductCount" placeholder="Enter Product Count">
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductPrice">Discount Rates</label>
+                            <input type="text" class="form-control" id="Discount" placeholder="Enter Discount rates">
+                        </div>
+                        <div class="form-group">
+                            <label for="ProductCount">Tax Rates</label>
+                            <input type="text" class="form-control" id="Tax" placeholder="Enter Tax rates">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSave" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="productImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">product</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="ProductId2" />
+                        <div class="thumbnail">
+                            <img src="" id="ImagePath" class="img-responsive" />
+                        </div>
+                        <div>
+                            <label for="file" id="ImageTip">Update Image:</label>
+                            <input type="file" name="file" id="UploadProductImage" style="width: 100%;" onchange="preview(this);"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnUpload" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

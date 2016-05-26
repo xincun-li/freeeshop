@@ -1,0 +1,50 @@
+﻿@model Final_eshop_xincunli.Models.MemberLoginView
+
+@{
+    ViewBag.Title = "Memeber Login";
+}
+
+<div id="login-form" class="account-form">
+    <img src="/Image/eShop-logo.png" />
+    <h3>Member Login</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="editor">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="display-block">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if(TempData["LastTempMessage"]!=null)
+    {
+        <script>
+            alert('@HttpUtility.JavaScriptStringEncode(TempData["LastTempMessage"].ToString())');
+        </script>
+    }
+    <script>
+        $(function () {
+            $("#@Html.IdFor(model=>model.email)")
+            .rules("add", { messages: { email: "Please input email address." } });
+        });
+    </script>
+}

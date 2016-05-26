@@ -1,0 +1,24 @@
+﻿@using Final_eshop_xincunli.Models;
+@model List<Final_eshop_xincunli.Models.CartItem>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+@section header{
+    @Styles.Render("/Content/CartList.css")
+    @Scripts.Render("/Scripts/cartList.js")
+}
+<br />
+<br />
+<br />
+<br />
+<h2>Shopping Cart</h2>
+<div id="cartContent">
+    <div id="errorMessageContent"></div>
+    @if (Session["CartItems"] != null && (Session["CartItems"] as List<CartItem>).Count() >0)
+    {
+        @Html.Partial("CartList", Model)
+    }else{
+        <p class="notContent">Empty cart</p>
+    }
+</div>

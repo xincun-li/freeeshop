@@ -1,0 +1,63 @@
+﻿@model List<Final_eshop_xincunli.Models.CartItem>
+@Html.Partial("OrderNavigator")
+@using (Html.BeginForm("UpdateAmount", "Cart", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <div class="errorMessageContent"></div>
+    <table id="cartList" class="display-block">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].product.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Amount)
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ double total = 0;}
+            @foreach (var cartItem in Model)
+            {
+                total += cartItem.Price;
+                <tr class="cartList-item">
+                    @Html.HiddenFor(model => cartItem.product.ProductId)
+                    <td class="cart-item-title">
+                        @Html.DisplayFor(modelItem => cartItem.product.ProductName)
+                    </td>
+                    <td class="cart-item-amount">
+                        @Html.TextBoxFor(model => cartItem.Amount)
+                    </td>
+                    <td class="cart-item-price">
+                        @Html.DisplayFor(model => cartItem.Price)
+                    </td>
+                    <td class="cart-item-button">
+                        @Html.ActionLink("Delete", "Delete", new { Id = cartItem.product.ProductId }, new { @class = "cartItemRemoveButton" })
+                        <img class="ajaxLoader" src="~/Content/ajaxLoader.gif" style="display:none" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <span class="cartTotal">NT$@total</span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="checkout-button-bottom">
+        <div class="display-block checkout-button-bottom-right">
+            <input type="button" id="updateAmountButton" name="updateAmountButton" value="Update Amount" />
+            @Html.ActionLink("Check Out", "CheckOut", "Order", null, new { id = "checkOutLink", @class = "important-button checkout-button" })
+        </div>
+
+    </div>
+                }
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
