@@ -1,27 +1,27 @@
-﻿<ul id="orderNavigator">
+﻿<ul id="orderNavigator" class="h4 list-inline pull-right text-primary">
     <li @if (getController() == "Cart")
         {
-            @:class="selected"
+            @:class="text-success"
         }>
-        1. Cart
+        Cart>>
     </li>
     <li @if (getAction() == "CheckOut")
         {
-            @:class="selected"
+            @:class="text-success"
         }>
-        2. Filling Order
+        Filling Order>>
     </li>
     <li @if (getAction() == "Confirm")
         {
-            @:class="selected"
+            @:class="text-success"
         }>
-        3. Confirm Order
+        Confirm Order>>
     </li>
     <li @if (getAction() == "Finish")
         {
-            @:class="selected"
+            @:class="text-success"
         }>
-        4. Place Order
+        Place Order
     </li>
 </ul>
 

@@ -33,45 +33,11 @@ namespace Final_eshop_xincunli.Controllers
                 };
                 CartItems.Add(item);
             }
+
+            Session["TotalCount"] = int.Parse(Session["TotalCount"].ToString()) +  1;
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult UpdateAmount(List<CartItem> updateCartItems)
-        {
-            Thread.Sleep(1000);
-            if (ModelState.IsValid)
-            {
-
-                foreach (var item in CartItems)
-                {
-                    var updateCartItem = updateCartItems.FirstOrDefault(newItem => newItem.Id == item.Id);
-                    if (updateCartItem != null)
-                    {
-                        if (updateCartItem.Amount > item.product.ProductCount)
-                            item.Amount=item.product.ProductCount;
-                        else
-                            item.Amount = updateCartItem.Amount;
-                    }
-                }
-                return Json(
-                    new { 
-                            NewCartItems =CartItems.Select(item => 
-                                new { 
-                                        Id = item.Id, Amount = item.Amount, 
-                                        Price = item.Price.ToString("C") 
-                                     }),
-                            Total=CartItems.Sum(i=>i.Price).ToString("C")
-                         });
-            }
-            else
-            {
-                
-                return Json(new { Error="Update Failed"});
-            }
-        }
-
-        [HttpPost]
+        }        
+        
         public ActionResult Delete(int id)
         {
             Thread.Sleep(1000);
@@ -79,7 +45,7 @@ namespace Final_eshop_xincunli.Controllers
             if (inCartItem != null)
             {
                 CartItems.Remove(inCartItem);
-                return new HttpStatusCodeResult(200, "The product has been removed");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -97,7 +63,7 @@ namespace Final_eshop_xincunli.Controllers
         [ChildActionOnly]
         public ActionResult CartSummary()
         {
-            ViewData["CartCount"] = CartItems.Count;
+            ViewData["CartCount"] = TotalCount;//CartItems.Count;
 
             return PartialView("CartSummary");
         }

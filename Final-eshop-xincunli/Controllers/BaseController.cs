@@ -24,6 +24,18 @@ namespace Final_eshop_xincunli.Controllers
             }
         }
 
+        public int TotalCount
+        {
+            get
+            {
+                if (Session["TotalCount"] == null)
+                {
+                    Session["TotalCount"] = 0;
+                }
+                return int.Parse(Session["TotalCount"].ToString());
+            }
+        }
+
         protected bool isPicture(string fileName)
         {
             string extensionName = fileName.Substring(fileName.LastIndexOf('.') + 1);

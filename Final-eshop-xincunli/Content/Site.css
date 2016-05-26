@@ -22,3 +22,34 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.checkout-button-bottom {
+    height: 90px;
+    width: 100%;
+    border-top: 1px dotted #D3D3D3;
+    padding: 5px;
+}
+
+.checkout-button-bottom * {
+    margin-left: 15px;
+}
+.checkout-button-bottom-right {
+    float:right;
+}
+
+.a-button-input {
+    position: absolute;
+    background-color: #fff;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: .01;
+    outline: 0;
+    overflow: visible;
+    z-index: 20;
+}
