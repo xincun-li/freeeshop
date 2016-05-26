@@ -40,7 +40,7 @@ namespace Final_eshop_xincunli.Models
                     product.ProductSEOName = p.ProductSEOName;
                     product.Discount = p.Discount;
                     product.Tax = p.Tax;
-                    product.SellerId = MemberManage.Get(HttpContext.Current.User.Identity.Name).Id;
+                    product.SellerId = db.MemberShips.First(m => m.Email == HttpContext.Current.User.Identity.Name).Id;//MemberManage.Get(HttpContext.Current.User.Identity.Name).Id;
                     db.Products.Add(product);
                     db.SaveChanges();
                 }

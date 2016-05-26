@@ -91,14 +91,12 @@ namespace Final_eshop_xincunli.Controllers
                 return true;
         }
 
-
-
-
         [HttpGet]
         public ActionResult LogIn()
         {
             return View();
         }
+
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;

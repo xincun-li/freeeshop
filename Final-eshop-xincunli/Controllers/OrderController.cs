@@ -16,24 +16,24 @@ namespace Final_eshop_xincunli.Controllers
         [HttpGet]
         public ActionResult Detail(int id)
         {
-            OrderSummary order=db.Orders.FirstOrDefault(o => o.Id == id);
+            OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
             if (order == null) RedirectToAction("OrderHistory", "Member");
 
             return View(order);
         }
 
 
-        public ActionResult OrderStatusFilter(int status=0)
+        public ActionResult OrderStatusFilter(int status = 0)
         {
-            var selectList = new SelectList(db.OrderStatuses, "Id", "Name",status);
-            ViewData["Query"] = "status"; 
-            return PartialView("Filter",selectList);
+            var selectList = new SelectList(db.OrderStatuses, "Id", "Name", status);
+            ViewData["Query"] = "status";
+            return PartialView("Filter", selectList);
         }
 
         public ActionResult OrderSortSelect(OrderSort sort = OrderSort.ByDateHightToLow)
         {
             var selectList = new SelectList(GetSortSelectList(), "Value", "Text", sort);
-            return PartialView("SortSelect",selectList);
+            return PartialView("SortSelect", selectList);
         }
 
         private IEnumerable<SelectListItem> GetSortSelectList()
@@ -46,7 +46,7 @@ namespace Final_eshop_xincunli.Controllers
                 new SelectListItem(){Text="ByOrderIdLowToHight",Value=OrderSort.ByOrderIdLowToHight.ToString()}
             };
         }
-        
+
         [Administrator]
         public ActionResult OrderStatusSelect(int id)
         {
@@ -59,12 +59,12 @@ namespace Final_eshop_xincunli.Controllers
 
         [HttpPost]
         [Administrator]
-        public ActionResult UpdateOrderStauts(int id,int status)
+        public ActionResult UpdateOrderStauts(int id, int status)
         {
             System.Threading.Thread.Sleep(1000);
             OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
             OrderStatus orderStatus = db.OrderStatuses.FirstOrDefault(os => os.Id == status);
-            if (order == null || orderStatus==null) return HttpNotFound();
+            if (order == null || orderStatus == null) return HttpNotFound();
             order.OrderStatus = orderStatus;
             db.SaveChanges();
             return Content(order.OrderStatus.Name);
@@ -94,7 +94,7 @@ namespace Final_eshop_xincunli.Controllers
         public ActionResult CheckOut()
         {
             if (CartItems.Count <= 0)
-                return RedirectToAction("Index","Cart");
+                return RedirectToAction("Index", "Cart");
             return View();
         }
 
@@ -143,23 +143,41 @@ namespace Final_eshop_xincunli.Controllers
             if (CartItems.Count <= 0)
                 return RedirectToAction("Index", "Cart");
             var order = new OrderSummary();
+            var member = db.MemberShips.First(m => m.Email == User.Identity.Name);
             order.OrderDate = DateTime.Now;
             if (TryUpdateModel(order))
             {
-                order.OrderDetails = GetOrderDetails();
+                order.OrderDetails = GetOrderDetails(member);
                 order.TotalPrice = CartItems.Sum(item => item.Price);
-                order.Member = db.MemberShips.First(m => m.Email == User.Identity.Name);
+                order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
                 StockSellOut(order);
                 db.Orders.Add(order);
                 db.SaveChanges();
                 CartItems.Clear();
+                Session["TotalCount"] = 0;
                 TempData["OrderId"] = order.Id;
-                //SendOrderMail(order);
+                SendOrderMail(order);
+
+                CheckAndUpgradeMember(order.Member);
                 return RedirectToAction("Finish");
             }
             return View("CheckOut");
 
+        }
+
+        private void CheckAndUpgradeMember(Member member)
+        {
+            if (member.Role == Role.Basic)
+            {
+                double? total = (from order in db.Orders
+                                 where order.Member.Id == member.Id
+                                 select order.TotalPrice).Sum();
+                if (total >= 1000.0)
+                {
+                    MemberManage.UpgradePremium(member);
+                }
+            }
         }
 
         private void StockSellOut(OrderSummary order)
@@ -215,18 +233,23 @@ namespace Final_eshop_xincunli.Controllers
                 return false;
             }
 
-          
+
         }
 
-        private List<OrderDetail> GetOrderDetails()
+        private List<OrderDetail> GetOrderDetails(Member member)
         {
             return CartItems.ConvertAll(item =>
             {
+                //Only Premium member have discount, otherwise no discount.
+                int discount = (member.Role == Role.Premium ? item.product.Discount : 100);
+                double price = item.Price * discount / 100;
                 return new OrderDetail
                 {
-                    product=db.Products.Find(item.product.ProductId),
-                    Price=item.Price,
-                    Amount=item.Amount
+                    product = db.Products.Find(item.product.ProductId),
+                    Price = price,
+                    Discount = discount,
+                    TaxPrice = item.product.Tax * price,
+                    Amount = item.Amount
                 };
             });
         }

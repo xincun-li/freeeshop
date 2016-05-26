@@ -19,6 +19,16 @@ namespace Final_eshop_xincunli.Models
         public double Price { get; set; }
 
         [Required]
+        [DisplayName("Price of Tax")]
+        [DataType(DataType.Currency)]
+        public double TaxPrice { get; set; }
+
+        [Required]
+        [DisplayName("Discount of Product")]
+        [DataType(DataType.Currency)]
+        public double Discount { get; set; }
+
+        [Required]
         [DisplayName("Amount")]
         public int Amount { get; set; }
 

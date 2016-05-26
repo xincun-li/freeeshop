@@ -1,4 +1,5 @@
 ﻿using Final_eshop_xincunli.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +54,31 @@ namespace Final_eshop_xincunli.Models
                             where u.Email == email
                             select u).FirstOrDefault();
                 return user;
+            }
+        }
+
+        public static bool UpgradePremium(Member m)
+        {
+            if (m == null)
+            {
+                throw new ArgumentNullException("Can't match a product.");
+            }
+            using (var db = new ShopContext())
+            {
+
+                var mm = (from u in db.MemberShips
+                               where u.Id == m.Id
+                               select u).FirstOrDefault();
+                if (mm == null)
+                {
+                    return false;
+                }
+                db.MemberShips.Attach(mm);
+                var entry = db.Entry(mm);
+                entry.Entity.Role = Role.Premium;
+                db.SaveChanges();
+
+                return true;
             }
         }
     }
