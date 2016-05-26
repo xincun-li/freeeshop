@@ -80,6 +80,8 @@ namespace Final_eshop_xincunli.Models
 
         public string ImagePath { get; set; }
 
+        public int SellerId { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

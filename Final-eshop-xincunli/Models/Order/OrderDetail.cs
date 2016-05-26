@@ -25,7 +25,7 @@ namespace Final_eshop_xincunli.Models
         [Required]
         public virtual Product product { get; set; }
 
-        public virtual OrderSummary OrderHeader { get; set; }
+        public virtual OrderSummary orderSummary { get; set; }
         
     }
 }

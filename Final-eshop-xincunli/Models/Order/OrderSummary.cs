@@ -77,7 +77,7 @@ namespace Final_eshop_xincunli.Models
         [Required]
         [DisplayName("Total Price")]
         [DataType(DataType.Currency)]
-        public int TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
 
         public virtual Member Member { get; set; }
 

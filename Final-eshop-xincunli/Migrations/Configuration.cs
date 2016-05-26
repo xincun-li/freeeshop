@@ -1,4 +1,4 @@
-namespace Assignment5_xincunli.Migrations
+namespace Final_eshop_xincunli.Migrations
 {
     using System;
     using System.Data.Entity;

@@ -5,7 +5,7 @@ using System.Web;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Assignment5_xincunli.Extension
+namespace Final_eshop_xincunli.Extension
 {
     public class Utils
     {

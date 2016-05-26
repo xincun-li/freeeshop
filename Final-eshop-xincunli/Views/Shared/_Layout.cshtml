@@ -25,6 +25,7 @@
                     <li>@Html.ActionLink("Product List", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Manage", "Product", "Manage", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Members", "MemberList", "Member")</li>
+                    <li><img src="~/Image/white-cart.png" width="42" height="42" /></li>
                     <li>@{Html.RenderAction("CartSummary", "Cart");}</li>
                 </ul>
 

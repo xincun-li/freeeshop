@@ -65,6 +65,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,6 +161,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\Shared\ErrorController.cs" />
     <Compile Include="Controllers\Shared\SharedController.cs" />
     <Compile Include="Extension\CollectionExtension.cs" />
@@ -168,8 +177,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart\CartItem.cs" />
-    <Compile Include="Models\Member\Favorites.cs" />
-    <Compile Include="Models\Member\Gender.cs" />
     <Compile Include="Models\Member\MemberDTO.cs" />
     <Compile Include="Models\Member\MemberManage.cs" />
     <Compile Include="Models\Product\Product.cs" />
@@ -194,11 +201,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cart.png" />
-    <Content Include="Content\CartList.css" />
     <Content Include="Content\checkout.png" />
-    <Content Include="Content\freeshop.css" />
     <Content Include="Content\grid-0.4.3.css" />
     <Content Include="Content\grid-0.4.3.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\raty\cancel-off.png" />
     <Content Include="Content\raty\cancel-on.png" />
     <Content Include="Content\raty\star-half.png" />
@@ -206,6 +212,7 @@
     <Content Include="Content\raty\star-off.png" />
     <Content Include="Content\raty\star-on-big.png" />
     <Content Include="Content\raty\star-on.png" />
+    <Content Include="Image\reg.jpg" />
     <Content Include="Content\Search.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -267,6 +274,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Image\white-cart.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -1,5 +1,5 @@
-﻿@using RockRecord.Helper
-@model List<RockRecord.Models.IProduct>
+﻿
+@model List<Final_eshop_xincunli.Models.IProduct>
 
 <div class="errorMessageContent"></div>
 @if(Model.Count>0){
@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <th colspan="2">
-                @Html.DisplayNameFor(model => model[0].Album)
+                @Html.DisplayNameFor(model => model[0].product)
             </th>
 
             <th>
@@ -19,17 +19,17 @@
         </tr>
     </thead>
     <tbody>
-        @{ int total = 0;}
+        @{ double total = 0;}
         @for (int i = 0; i < Model.Count(); i++)
         {
             total += Model[i].Price;
             <tr class="cartList-item">
                 @Html.HiddenFor(model => Model[i].Id)
                 <td class="cart-item-cover">
-                    @Html.AlbumCover(Model[i].Album.Id, 120)
+                    @Html.LabelFor(model => Model[i].product.ProductId)
                 </td>
                 <td class="cart-item-title">
-                   @Html.AlbumTitle(Model[i].Album)
+                   @Html.LabelFor(model => Model[i].product)
                 </td>
                 <td class="cart-item-amount">
                     @Html.DisplayFor(model => Model[i].Amount)
@@ -43,14 +43,14 @@
     <tfoot>
         <tr>
             <td colspan="4">
-                <span class="cartTotal">總金額:NT$@total</span>
+                <span class="cartTotal">Order Total: $@total</span>
             </td>
         </tr>
     </tfoot>
 </table>
 }else{
     <p class="notContent">
-        查無任何訂購商品，商品可能已下架或不再販售
+        No Products
     </p>
 }
 

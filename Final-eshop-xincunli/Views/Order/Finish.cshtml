@@ -1,10 +1,9 @@
-﻿@model RockRecord.Models.OrderHeader
+﻿@model Final_eshop_xincunli.Models.OrderSummary
 @{
-    ViewBag.Title = "完成訂單";
+    ViewBag.Title = "Complete Order";
 }
 @Html.Partial("OrderNavigator")
-<h2>訂單送出成功</h2>
-
+<h2>Order Successfully</h2>
 <p>
-    您的訂單編號為@(ViewData["OrderId"].ToString()),已將您的訂單資訊寄至您的信箱@(User.Identity.Name)
+    Your order number is @(ViewData["OrderId"].ToString()), also send a receipt to your email address: @(User.Identity.Name)
 </p>

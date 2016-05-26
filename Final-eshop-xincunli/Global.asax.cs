@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Final_eshop_xincunli.Migrations;
+using Final_eshop_xincunli.Models;
+using System.Data.Entity;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -29,6 +28,9 @@ namespace Final_eshop_xincunli
 
             var config = System.Web.Http.GlobalConfiguration.Configuration;
             config.Formatters.Insert(0, new System.Net.Http.Formatting.JsonMediaTypeFormatter());
+
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ShopContext, Configuration>());
         }
     }
 }

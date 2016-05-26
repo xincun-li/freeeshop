@@ -31,11 +31,12 @@ textarea {
     padding: 5px;
 }
 
-.checkout-button-bottom * {
-    margin-left: 15px;
-}
+    .checkout-button-bottom * {
+        margin-left: 15px;
+    }
+
 .checkout-button-bottom-right {
-    float:right;
+    float: right;
 }
 
 .a-button-input {
@@ -52,4 +53,16 @@ textarea {
     outline: 0;
     overflow: visible;
     z-index: 20;
+}
+
+.cartTotal {
+    color: #b12704 !important;
+    font-size: 130%;
+    font-weight: bold;
+}
+
+
+.checkout-button {
+    padding-left: 30px;
+    background: url("/Content/checkout.png") 3px center no-repeat #FF4500;
 }
