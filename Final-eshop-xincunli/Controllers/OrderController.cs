@@ -149,13 +149,14 @@ namespace Final_eshop_xincunli.Controllers
             {
                 order.OrderDetails = GetOrderDetails(member);
                 order.TotalPrice = CartItems.Sum(item => item.Price);
+                order.TotalTax = CartItems.Sum(item => item.TaxPrice);
                 order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
                 StockSellOut(order);
                 db.Orders.Add(order);
                 db.SaveChanges();
                 CartItems.Clear();
-                Session["TotalCount"] = 0;
+                Session["TotalCount-" + User.Identity.Name] = 0;
                 TempData["OrderId"] = order.Id;
                 SendOrderMail(order);
 
@@ -166,6 +167,10 @@ namespace Final_eshop_xincunli.Controllers
 
         }
 
+        /// <summary>
+        /// Upgrade member to premium, if they have consumed over than $1000.00
+        /// </summary>
+        /// <param name="member"></param>
         private void CheckAndUpgradeMember(Member member)
         {
             if (member.Role == Role.Basic)

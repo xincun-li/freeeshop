@@ -17,13 +17,48 @@ namespace Final_eshop_xincunli.Controllers
             return View(member);
         }
 
-
         [Authorize]
-        public ActionResult MyAccount()
+        public ActionResult Info()
         {
-            return View("Edit", db.MemberShips.First(m => m.Email == User.Identity.Name));
+            return View(db.MemberShips.First(m => m.Email == User.Identity.Name));
         }
 
+        [Authorize]
+        [HttpGet]
+        //[OutputCache(CacheProfile = "StaticProduct")]
+        public JsonResult OrderHistory(int? page, int? limit, string sortBy, string direction, string searchString = null)
+        {
+            int total = 0;
+            var records = new object();
+            try
+            {
+                records = OrderManage.OrderHistory(page, limit, sortBy, direction, searchString, out total);
+            }
+            catch (Exception e)
+            {
+                records = "error:" + e.Message;
+            }
+            return Json(new { records, total }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpGet]
+        //[OutputCache(CacheProfile = "StaticProduct")]
+        public JsonResult OrderSeller(int? page, int? limit, string sortBy, string direction, string searchString = null)
+        {
+            int total = 0;
+            var records = new object();
+            try
+            {
+                records = OrderManage.OrderSeller(page, limit, sortBy, direction, searchString, out total);
+            }
+            catch (Exception e)
+            {
+                records = "error:" + e.Message;
+            }
+            return Json(new { records, total }, JsonRequestBehavior.AllowGet);
+        }
+        
         [Authorize]
         public ActionResult OrderHistory(int p = 1, int status = 0)
         {

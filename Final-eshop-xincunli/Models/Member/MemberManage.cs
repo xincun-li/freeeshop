@@ -16,7 +16,7 @@ namespace Final_eshop_xincunli.Models
                 mm.Email = m.Email;
                 mm.Password = m.Password;
                 mm.ConfirmPassword = m.Password;
-                mm.Role = m.Role == 2 ? Role.Admin : Role.Basic;
+                mm.Role = m.Role == 2 ? Role.Seller : Role.Basic;
                 db.MemberShips.Add(mm);
                 db.SaveChanges();
                 return mm.Id;

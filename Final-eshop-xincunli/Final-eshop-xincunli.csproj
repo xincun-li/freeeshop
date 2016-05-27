@@ -179,6 +179,8 @@
     <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\Member\MemberDTO.cs" />
     <Compile Include="Models\Member\MemberManage.cs" />
+    <Compile Include="Models\Order\OrderManage.cs" />
+    <Compile Include="Models\Order\OrderDTO.cs" />
     <Compile Include="Models\Product\Product.cs" />
     <Compile Include="Models\Product\ProductManage.cs" />
     <Compile Include="Models\Product\ProductDTO.cs" />
@@ -324,7 +326,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Member\AccountMenu.cshtml" />
-    <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\OrderHistory.cshtml" />
@@ -337,18 +338,6 @@
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Order\Finish.cshtml" />
     <Content Include="Views\Order\OrderHeaderDetail.cshtml" />
-    <Content Include="Views\Order\OrderStatusFilter.cshtml" />
-    <Content Include="Views\Order\OrderStatusSelect.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Shared\AlbumList.cshtml" />
-    <Content Include="Views\Shared\AlbumListItem.cshtml" />
-    <Content Include="Views\Shared\Dialog.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Rating_Small.cshtml" />
-    <Content Include="Views\Shared\Filter.cshtml" />
-    <Content Include="Views\Shared\LoginUserPhoto.cshtml" />
-    <Content Include="Views\Shared\Navigater.cshtml" />
     <Content Include="Views\Shared\NotAuthorization.cshtml" />
     <Content Include="Views\Shared\OrderList.cshtml" />
     <Content Include="Views\Shared\OrderNavigator.cshtml" />
@@ -360,13 +349,12 @@
     <Content Include="Views\Member\MemberInfo.cshtml" />
     <Content Include="Views\Member\MemberList.cshtml" />
     <Content Include="Views\Cart\CartSummary.cshtml" />
+    <Content Include="Views\Member\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Uploads\" />
     <Folder Include="Views\Background\" />
-    <Folder Include="Views\Product\" />
-    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -34,7 +34,7 @@ namespace Final_eshop_xincunli.Controllers
                 CartItems.Add(item);
             }
 
-            Session["TotalCount"] = int.Parse(Session["TotalCount"].ToString()) +  1;
+            Session["TotalCount-" + User.Identity.Name] = int.Parse(Session["TotalCount-" + User.Identity.Name].ToString()) +  1;
             return RedirectToAction("Index");
         }        
         

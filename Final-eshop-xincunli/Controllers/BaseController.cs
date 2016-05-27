@@ -12,11 +12,11 @@ namespace Final_eshop_xincunli.Controllers
         {
             get
             {
-                if (Session["CartItems"] == null)
+                if (Session["CartItems-" + User.Identity.Name] == null)
                 {
-                    Session["CartItems"] = new List<CartItem>();
+                    Session["CartItems-" + User.Identity.Name] = new List<CartItem>();
                 }
-                return Session["CartItems"] as List<CartItem>;
+                return Session["CartItems-" + User.Identity.Name] as List<CartItem>;
             }
             set
             {
@@ -28,11 +28,11 @@ namespace Final_eshop_xincunli.Controllers
         {
             get
             {
-                if (Session["TotalCount"] == null)
+                if (Session["TotalCount-" + User.Identity.Name] == null)
                 {
-                    Session["TotalCount"] = 0;
+                    Session["TotalCount-" + User.Identity.Name] = 0;
                 }
-                return int.Parse(Session["TotalCount"].ToString());
+                return int.Parse(Session["TotalCount-" + User.Identity.Name].ToString());
             }
         }
 

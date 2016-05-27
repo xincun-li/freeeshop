@@ -13,7 +13,7 @@ namespace Final_eshop_xincunli.Models
     {
         Basic,
         Premium,
-        Admin
+        Seller
     }
     [DisplayName("Memebership information")]
     [DisplayColumn("Name")]

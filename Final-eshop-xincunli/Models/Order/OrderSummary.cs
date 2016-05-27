@@ -79,6 +79,11 @@ namespace Final_eshop_xincunli.Models
         [DataType(DataType.Currency)]
         public double TotalPrice { get; set; }
 
+        [Required]
+        [DisplayName("Total Tax")]
+        [DataType(DataType.Currency)]
+        public double TotalTax { get; set; }
+
         public virtual Member Member { get; set; }
 
         [DisplayName("Order Status")]

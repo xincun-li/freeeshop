@@ -35,6 +35,28 @@ namespace Final_eshop_xincunli.Models
             {
 
             }
-        }        
+        }
+
+        [DataType(DataType.Currency)]
+        [DisplayName("Tax Price")]
+        public double TaxPrice
+        {
+            get
+            {
+                if (product != null)
+                {
+                    return product.ProductPrice * product.Tax / 100;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            set
+            {
+
+            }
+        }
     }
 }

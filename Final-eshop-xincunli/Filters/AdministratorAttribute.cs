@@ -19,7 +19,7 @@ namespace Final_eshop_xincunli.Filters
         }
         private bool isAdiministrator(string email)
         {
-            return db.MemberShips.First(member => member.Email == email).Role==Role.Admin;
+            return db.MemberShips.First(member => member.Email == email).Role==Role.Seller;
         }
     }
 }
