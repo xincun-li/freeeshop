@@ -71,17 +71,19 @@ namespace Final_eshop_xincunli.Models
         {
             using (var db = new ShopContext())
             {
-                total = db.Products.Count();
+                //total = db.Products.Count();
                 var records = (from u in db.Products
                                select new ProductDTO
                                {
                                    ProductId = u.ProductId,
                                    ProductName = u.ProductName,
+                                   ProductSEOName = u.ProductSEOName,
                                    Category = u.Category,
                                    ProductPrice = u.ProductPrice,
-                                   ProductCount = u.ProductCount
+                                   ProductCount = u.ProductCount,
+                                   Discount = u.Discount,
+                                   Tax = u.Tax
                                }).AsQueryable();
-
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
                     records = records.Where(p => p.Category.Contains(searchString));
@@ -109,13 +111,18 @@ namespace Final_eshop_xincunli.Models
                     records = records.Skip(start).Take(limit.Value);
                 }
 
+                total = records.Count();
+
                 return records.Select(p => new ProductDTO
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
+                    ProductSEOName = p.ProductSEOName,
                     Category = p.Category,
                     ProductPrice = p.ProductPrice,
-                    ProductCount = p.ProductCount
+                    ProductCount = p.ProductCount,
+                    Discount = p.Discount,
+                    Tax = p.Tax
                 }).ToList();
             }
         }

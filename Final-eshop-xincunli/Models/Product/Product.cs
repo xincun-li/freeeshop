@@ -66,7 +66,7 @@ namespace Final_eshop_xincunli.Models
         /// 
         /// </summary>
         [Required(ErrorMessage = "Please Enter Product Tax rates")]
-        [Display(Name = "Product Tas rates")]
+        [Display(Name = "Product Tax rates")]
         public double Tax { get; set; }
 
         /// <summary>

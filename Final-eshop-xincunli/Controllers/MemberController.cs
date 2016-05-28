@@ -1,4 +1,5 @@
 ﻿using Final_eshop_xincunli.Extension;
+using Final_eshop_xincunli.Filters;
 using Final_eshop_xincunli.Models;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,13 @@ namespace Final_eshop_xincunli.Controllers
             return Json(new { records, total }, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
+        [Administrator]
+        public ActionResult OrderProcess()
+        {
+            return View();
+        }
+
+        [Administrator]
         [HttpGet]
         //[OutputCache(CacheProfile = "StaticProduct")]
         public JsonResult OrderSeller(int? page, int? limit, string sortBy, string direction, string searchString = null)
@@ -67,18 +74,7 @@ namespace Final_eshop_xincunli.Controllers
                                   .OrderByDescending(o => o.OrderDate)
                                   );
         }
-
-        private SelectList GetOrderStatusFilter(string filter)
-        {
-            var items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Value = "All", Text = "All Order" });
-            foreach (var item in db.OrderStatuses)
-            {
-                items.Add(new SelectListItem { Value = item.Id.ToString(), Text = item.Name });
-            }
-            return new SelectList(items, "Value", "Text", filter);
-        }
-
+        
         public ActionResult Register()
         {
             return View();

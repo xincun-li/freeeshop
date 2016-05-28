@@ -1,7 +1,7 @@
 ﻿<html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>My Product Store</title>
+    <title>Product Manage</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -78,9 +78,9 @@
             $("#Category").val(e.data.record.Category);
             $("#ProductPrice").val(e.data.record.ProductPrice);
             $("#ProductCount").val(e.data.record.ProductCount);
-            $("#ProductSEOName").val(e.data.ProductSEOName);
-            $("#Discount").val(e.data.Discount);
-            $("#Tax").val(e.data.Tax);
+            $("#ProductSEOName").val(e.data.record.ProductSEOName);
+            $("#Discount").val(e.data.record.Discount);
+            $("#Tax").val(e.data.record.Tax);
             $("#productModal").modal("show");
         }
         function Save() {
@@ -173,8 +173,8 @@
                     { field: "Category", title: "Category", sortable: true },
                     { field: "ProductPrice", title: "Product Price", sortable: true },
                     { field: "ProductCount", title: "Product Count", sortable: true },
-                    { field: "Discount", title: "Product Price", sortable: true },
-                    { field: "Tax", title: "Product Count", sortable: true },
+                    { field: "Discount", title: "Discount", sortable: true },
+                    { field: "Tax", title: "Tax", sortable: true },
                     { title: "Upload", field: "Upload", width: 60, type: "icon", icon: "glyphicon-camera", tooltip: "Image", events: { "click": ShowImage } },
                     { title: "View", field: "View", width: 54, type: "icon", icon: "glyphicon-zoom-in", tooltip: "View", events: { "click": View } },
                     { title: "Edit", field: "Edit", width: 54, type: "icon", icon: "glyphicon-pencil", tooltip: "Edit", events: { "click": Edit } },

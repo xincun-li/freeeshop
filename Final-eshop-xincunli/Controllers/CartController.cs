@@ -18,7 +18,7 @@ namespace Final_eshop_xincunli.Controllers
         [HttpPost]
         public ActionResult AddToCart(int id)
         {
-            CartItem inCartItem=CartItems.FirstOrDefault(item => item.product.ProductId == id);
+            CartItem inCartItem=CartItems.FirstOrDefault(item => item.Product.ProductId == id);
             if (inCartItem != null)
             {
                 inCartItem.Amount = ++inCartItem.Amount;
@@ -28,7 +28,7 @@ namespace Final_eshop_xincunli.Controllers
                 var item = new CartItem
                 {
                     Id=CartItems.Count()>0?CartItems.Last().Id+1:1,
-                    product = db.Products.Find(id),
+                    Product = db.Products.Find(id),
                     Amount = 1
                 };
                 CartItems.Add(item);

@@ -10,7 +10,7 @@ namespace Final_eshop_xincunli.Models
     public interface IProduct
     {
         int Id { get; set; }
-        Product product { get; set; }
+        Product Product { get; set; }
 
         [DisplayName("Amount")]
         int Amount { get; set; }

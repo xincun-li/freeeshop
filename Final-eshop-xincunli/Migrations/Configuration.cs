@@ -10,6 +10,7 @@ namespace Final_eshop_xincunli.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "Final_eshop_xincunli.Models.ShopContext";
         }
 

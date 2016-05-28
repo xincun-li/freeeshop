@@ -1,8 +1,7 @@
-﻿@model Final_eshop_xincunli.Models.Member
-<html>
+﻿<html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Member Information</title>
+    <title>Seller Order List</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/grid-0.4.3.min.css" rel="stylesheet" type="text/css">
@@ -42,6 +41,36 @@
             grid.reload({ searchString: $("#search").val() });
         }
 
+        function Deliver(e) {
+            $.ajax({
+                url: "/api/Process/", type: "Post", data: {
+                    OrderId: e.data.id,
+                    Status: "COMPLETED"
+                }
+            })
+                .done(function () {
+                    grid.reload();
+                })
+                .fail(function () {
+                    alert("Failed to save.");
+                });
+        }
+        
+        function Cancel(e) {
+            $.ajax({
+                url: "/api/Process/", type: "Post", data: {
+                    OrderId: e.data.id,
+                    Status: "CANCELED"
+                }
+            })
+                .done(function () {
+                    grid.reload();
+                })
+                .fail(function () {
+                    alert("Failed to save.");
+                });
+        }
+
 
         $(document).ready(function () {
             grid = $("#grid").grid({
@@ -53,11 +82,14 @@
                     { field: "ContactAddress", title: "Address", sortable: true },
                     { field: "ContactPhone", title: "ContactPhone", sortable: true },
                     { field: "Status", title: "Status", sortable: true },
-                    { field: "OrderDate", title: "Order Date", type: "date", sortable: true }
+                    { field: "OrderDate", title: "Order Date", type: "date", sortable: true },
+                    { title: "Deliver", field: "Deliver", width: 64, type: "icon", icon: "glyphicon-calendar", tooltip: "Order Deliver", events: { "click": Deliver } },
+                    { title: "Cancel", field: "Cancel", width: 64, type: "icon", icon: "glyphicon-trash", tooltip: "Order Cancel", events: { "click": Cancel } }
                 ],
                 pager: { enable: true, limit: 20, sizes: [5, 10, 20, 100] }
             });
             $("#btnSearch").on("click", Search);
+
         });
 
         function tog(v) { return v ? 'addClass' : 'removeClass'; }
@@ -74,37 +106,8 @@
 </head>
 
 <body>
-    <h3>@(Model.Name) personal information</h3>
-    <div class="container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Information</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Html.LabelFor(model => model.Name, new { @class = "col-md-4 control-label" })</td>
-                    <td>@Html.DisplayFor(model => model.Name)</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(model => model.Role, new { @class = "col-md-4 control-label" })</td>
-                    <td>@Html.DisplayFor(model => model.Role)</td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(model => model.RegisterDate, new { @class = "col-md-4 control-label" })</td>
-                    <td>@Html.DisplayFor(model => model.RegisterDate)</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br />
-    <hr />
-    <br />
-
     <div class="container fill">
-        <h2>My Order List</h2>
+        <h2>Seller Order List</h2>
         <br />
         <div class="row">
             <div class="col-md-3">
@@ -117,7 +120,7 @@
             </div>
         </div>
         <br />
-        <table id="grid" data-source="@Url.Action("OrderHistory")"></table>
+        <table id="grid" data-source="@Url.Action("OrderSeller")"></table>
     </div>
 </body>
 </html>

@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ProcessController.cs" />
     <Compile Include="API\UploadController.cs" />
     <Compile Include="API\ProductController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -350,6 +351,7 @@
     <Content Include="Views\Member\MemberList.cshtml" />
     <Content Include="Views\Cart\CartSummary.cshtml" />
     <Content Include="Views\Member\Info.cshtml" />
+    <Content Include="Views\Member\OrderProcess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

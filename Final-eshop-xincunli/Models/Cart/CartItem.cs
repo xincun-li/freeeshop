@@ -1,18 +1,19 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Final_eshop_xincunli.Models
 {
-    public class CartItem :IProduct
+    public class CartItem : IProduct
     {
 
         public int Id { get; set; }
 
         [DisplayName("Product")]
-        public Product product { get; set;}
+        public Product Product { get; set; }
 
         [DisplayName("Amount")]
-        [Range(1,999,ErrorMessage= "Amount must be range in 1-999")]
+        [Range(1, 999, ErrorMessage = "Amount must be range in 1-999")]
         public int Amount { get; set; }
 
         [DataType(DataType.Currency)]
@@ -21,15 +22,15 @@ namespace Final_eshop_xincunli.Models
         {
             get
             {
-                if (product != null)
+                if (Product != null)
                 {
-                    return product.ProductPrice * Amount;
+                    return Product.ProductPrice * Amount;
                 }
                 else
                 {
                     return 0;
                 }
-                
+
             }
             set
             {
@@ -43,9 +44,9 @@ namespace Final_eshop_xincunli.Models
         {
             get
             {
-                if (product != null)
+                if (Product != null)
                 {
-                    return product.ProductPrice * product.Tax / 100;
+                    return Math.Round(Product.ProductPrice * Product.Tax / 100, 2);
                 }
                 else
                 {

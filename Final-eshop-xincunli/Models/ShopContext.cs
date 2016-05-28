@@ -33,6 +33,17 @@ namespace Final_eshop_xincunli.Models
         {
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            
+
+            modelBuilder.Entity<Member>().HasMany(m => m.Orders)
+                                         .WithRequired(o => o.Member)
+                                         .WillCascadeOnDelete(true);
+            
+
+            modelBuilder.Entity<OrderSummary>().HasMany(o => o.OrderDetails)
+                                              .WithRequired(od => od.OrderSummary)
+                                              .WillCascadeOnDelete(true);
         }
     }
 }

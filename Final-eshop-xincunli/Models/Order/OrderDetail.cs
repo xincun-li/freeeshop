@@ -33,9 +33,9 @@ namespace Final_eshop_xincunli.Models
         public int Amount { get; set; }
 
         [Required]
-        public virtual Product product { get; set; }
+        public virtual Product Product { get; set; }
 
-        public virtual OrderSummary orderSummary { get; set; }
+        public virtual OrderSummary OrderSummary { get; set; }
         
     }
 }

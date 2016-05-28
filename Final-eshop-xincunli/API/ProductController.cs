@@ -27,13 +27,17 @@ namespace Final_eshop_xincunli.API
                 return (List<ProductDTO>)HttpContext.Current.Cache[keyAllProduct];
             }
             List<ProductDTO> list =
-            ProductManage.GetAllProducts().Select(p => new ProductDTO
+            ProductManage.GetAllProducts().Select(u => new ProductDTO
             {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                Category = p.Category,
-                ProductPrice = p.ProductPrice,
-                ProductCount = p.ProductCount
+                ProductId = u.ProductId,
+                ProductName = u.ProductName,
+                ProductSEOName = u.ProductSEOName,
+                Category = u.Category,
+                ProductPrice = u.ProductPrice,
+                ProductCount = u.ProductCount,
+                Discount = u.Discount,
+                Tax = u.Tax,
+                ImagePath = u.ImagePath
             }).ToList();
 
             HttpContext.Current.Cache.Insert(keyAllProduct, list, null,
@@ -59,7 +63,10 @@ namespace Final_eshop_xincunli.API
             {
                 ProductId = p.ProductId,
                 ProductName = p.ProductName,
+                ProductSEOName = p.ProductSEOName,
                 Category = p.Category,
+                Discount = p.Discount,
+                Tax = p.Tax,
                 ProductPrice = p.ProductPrice,
                 ProductCount = p.ProductCount,
                 ImagePath = p.ImagePath

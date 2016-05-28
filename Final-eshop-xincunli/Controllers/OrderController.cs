@@ -12,84 +12,6 @@ namespace Final_eshop_xincunli.Controllers
     [Authorize]
     public class OrderController : BaseController
     {
-
-        [HttpGet]
-        public ActionResult Detail(int id)
-        {
-            OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
-            if (order == null) RedirectToAction("OrderHistory", "Member");
-
-            return View(order);
-        }
-
-
-        public ActionResult OrderStatusFilter(int status = 0)
-        {
-            var selectList = new SelectList(db.OrderStatuses, "Id", "Name", status);
-            ViewData["Query"] = "status";
-            return PartialView("Filter", selectList);
-        }
-
-        public ActionResult OrderSortSelect(OrderSort sort = OrderSort.ByDateHightToLow)
-        {
-            var selectList = new SelectList(GetSortSelectList(), "Value", "Text", sort);
-            return PartialView("SortSelect", selectList);
-        }
-
-        private IEnumerable<SelectListItem> GetSortSelectList()
-        {
-            return new List<SelectListItem>
-            {
-                new SelectListItem(){Text="ByDateHightToLow",Value=OrderSort.ByDateHightToLow.ToString()},
-                new SelectListItem(){Text="ByDateLowToHight",Value=OrderSort.ByDateLowToHight.ToString()},
-                new SelectListItem(){Text="ByOrderIdHightToLow",Value=OrderSort.ByOrderIdHightToLow.ToString()},
-                new SelectListItem(){Text="ByOrderIdLowToHight",Value=OrderSort.ByOrderIdLowToHight.ToString()}
-            };
-        }
-
-        [Administrator]
-        public ActionResult OrderStatusSelect(int id)
-        {
-            System.Threading.Thread.Sleep(1000);
-            OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
-            if (order == null) return HttpNotFound();
-            var seletList = new SelectList(db.OrderStatuses, "Id", "Name", order.OrderStatus.Id);
-            return PartialView(seletList);
-        }
-
-        [HttpPost]
-        [Administrator]
-        public ActionResult UpdateOrderStauts(int id, int status)
-        {
-            System.Threading.Thread.Sleep(1000);
-            OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
-            OrderStatus orderStatus = db.OrderStatuses.FirstOrDefault(os => os.Id == status);
-            if (order == null || orderStatus == null) return HttpNotFound();
-            order.OrderStatus = orderStatus;
-            db.SaveChanges();
-            return Content(order.OrderStatus.Name);
-        }
-
-        [HttpPost]
-        [Administrator]
-        public ActionResult Delete(int id)
-        {
-            System.Threading.Thread.Sleep(1000);
-            try
-            {
-                OrderSummary order = db.Orders.FirstOrDefault(o => o.Id == id);
-                if (order == null) return HttpNotFound();
-                db.Orders.Remove(order);
-                db.SaveChanges();
-                TempData["deletedName"] = order.Id;
-                return new HttpStatusCodeResult(200, "Delete successfully");
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(500, "Delete failed");
-            }
-        }
-
         [HttpGet]
         public ActionResult CheckOut()
         {
@@ -148,7 +70,7 @@ namespace Final_eshop_xincunli.Controllers
             if (TryUpdateModel(order))
             {
                 order.OrderDetails = GetOrderDetails(member);
-                order.TotalPrice = CartItems.Sum(item => item.Price);
+                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price), 2);
                 order.TotalTax = CartItems.Sum(item => item.TaxPrice);
                 order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
@@ -189,7 +111,7 @@ namespace Final_eshop_xincunli.Controllers
         {
             foreach (var od in order.OrderDetails)
             {
-                od.product.ProductCount -= od.Amount;
+                od.Product.ProductCount -= od.Amount;
             }
         }
 
@@ -219,7 +141,7 @@ namespace Final_eshop_xincunli.Controllers
 
                 var smtpSever = new SmtpClient("smtp.gmail.com");
                 smtpSever.Port = 587;
-                smtpSever.Credentials = new System.Net.NetworkCredential("exile1030@gmail.com", "exile0204");
+                smtpSever.Credentials = new System.Net.NetworkCredential("freeeshop.e583@gmail.com", "123abcabc");
                 smtpSever.EnableSsl = true;
                 var mailMsg = new MailMessage
                 {
@@ -246,14 +168,14 @@ namespace Final_eshop_xincunli.Controllers
             return CartItems.ConvertAll(item =>
             {
                 //Only Premium member have discount, otherwise no discount.
-                int discount = (member.Role == Role.Premium ? item.product.Discount : 100);
-                double price = item.Price * discount / 100;
+                int discount = (member.Role == Role.Premium ? item.Product.Discount : 100);
+                double price = Math.Round(item.Price * discount / 100, 2);
                 return new OrderDetail
                 {
-                    product = db.Products.Find(item.product.ProductId),
+                    Product = db.Products.Find(item.Product.ProductId),
                     Price = price,
                     Discount = discount,
-                    TaxPrice = item.product.Tax * price,
+                    TaxPrice = Math.Round(item.Product.Tax * price, 2),
                     Amount = item.Amount
                 };
             });
