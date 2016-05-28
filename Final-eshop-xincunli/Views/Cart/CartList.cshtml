@@ -4,7 +4,7 @@
     <thead>
         <tr class="info">
             <th>
-                @Html.DisplayNameFor(model => model[0].product.ProductName)
+                @Html.DisplayNameFor(model => model[0].Product.ProductName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Amount)
@@ -21,9 +21,9 @@
             {
                 total += cartItem.Price;
             <tr class="cartList-item">
-                @Html.HiddenFor(model => cartItem.product.ProductId)
+                @Html.HiddenFor(model => cartItem.Product.ProductId)
                 <td class="cart-item-title">
-                    @Html.DisplayFor(modelItem => cartItem.product.ProductName)
+                    @Html.DisplayFor(modelItem => cartItem.Product.ProductName)
                 </td>
                 <td class="cart-item-amount">
                     @Html.DisplayFor(model => cartItem.Amount)
@@ -32,7 +32,7 @@
                     @Html.DisplayFor(model => cartItem.Price)
                 </td>
                 <td class="cart-item-button">
-                    @Html.ActionLink("Delete", "Delete", new { Id = cartItem.product.ProductId }, new { @class = "cartItemRemoveButton" })
+                    @Html.ActionLink("Delete", "Delete", new { Id = cartItem.Product.ProductId }, new { @class = "cartItemRemoveButton" })
                     <img class="ajaxLoader" src="~/Content/ajaxLoader.gif" style="display:none" />
                 </td>
             </tr>

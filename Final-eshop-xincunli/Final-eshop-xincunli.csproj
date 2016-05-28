@@ -166,6 +166,7 @@
     <Compile Include="Controllers\Shared\ErrorController.cs" />
     <Compile Include="Controllers\Shared\SharedController.cs" />
     <Compile Include="Extension\CollectionExtension.cs" />
+    <Compile Include="Extension\CreditAuthorizationClient.cs" />
     <Compile Include="Extension\SelectListItemHelper.cs" />
     <Compile Include="Extension\SortHelper.cs" />
     <Compile Include="Extension\Utils.cs" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Cart\CartSummary.cshtml" />
     <Content Include="Views\Member\Info.cshtml" />
     <Content Include="Views\Member\OrderProcess.cshtml" />
+    <Content Include="Views\Order\ProcessCreditResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

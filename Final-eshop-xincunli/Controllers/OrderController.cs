@@ -6,6 +6,8 @@ using System.Net.Mail;
 using Final_eshop_xincunli.Models;
 using Final_eshop_xincunli.Filters;
 using Final_eshop_xincunli.Models.ViewModel;
+using System.Configuration;
+using System.Web;
 
 namespace Final_eshop_xincunli.Controllers
 {
@@ -181,5 +183,48 @@ namespace Final_eshop_xincunli.Controllers
             });
         }
 
+        public ActionResult InitiateCreditTransaction()
+        {
+            //Assign the values for the properties we need to pass to the service
+            String AppId = ConfigurationManager.AppSettings["CreditAppId"];
+            String SharedKey = ConfigurationManager.AppSettings["CreditAppSharedKey"];
+            String AppTransId = "20";
+            String AppTransAmount = "12.50";
+
+            // Hash the values so the server can verify the values are original
+            String hash = HttpUtility.UrlEncode(CreditAuthorizationClient.GenerateClientRequestHash(SharedKey, AppId, AppTransId, AppTransAmount));
+
+            //Create the URL and  concatenate  the Query String values
+            String url = "http://ectweb2.cs.depaul.edu/ECTCreditGateway/Authorize.aspx";
+            url = url + "?AppId=" + AppId;
+            url = url + "&TransId=" + AppTransId;
+            url = url + "&AppTransAmount=" + AppTransAmount;
+            url = url + "&AppHash=" + hash;
+
+            return Redirect(url);
+        }
+
+        public ActionResult ProcessCreditResponse(String TransId, String TransAmount, String StatusCode, String AppHash)
+        {
+            String AppId = ConfigurationManager.AppSettings["CreditAppId"];
+            String SharedKey = ConfigurationManager.AppSettings["CreditAppSharedKey"];
+
+            if (CreditAuthorizationClient.VerifyServerResponseHash(AppHash, SharedKey, AppId, TransId, TransAmount, StatusCode))
+            {
+                switch (StatusCode)
+                {
+                    case ("A"): ViewBag.TransactionStatus = "Transaction Approved!"; break;
+                    case ("D"): ViewBag.TransactionStatus = "Transaction Denied!"; break;
+                    case ("C"): ViewBag.TransactionStatus = "Transaction Cancelled!"; break;
+
+                }
+            }
+            else
+            {
+                ViewBag.TransactionStatus = "Hash Verification failed... something went wrong.";
+            }
+
+            return View();
+        }
     }
 }

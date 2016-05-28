@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].product.ProductName)
+                    @Html.DisplayNameFor(model => model[0].Product.ProductName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model[0].Amount)
@@ -19,11 +19,11 @@
                 @if (m.Role == Role.Premium)
                 {
                     <th>
-                        @Html.DisplayNameFor(model => model[0].product.Discount)
+                        @Html.DisplayNameFor(model => model[0].Product.Discount)
                     </th>
                 }
                 <th>
-                    @Html.DisplayNameFor(model => model[0].product.Tax)
+                    @Html.DisplayNameFor(model => model[0].Product.Tax)
                 </th>
             </tr>
         </thead>
@@ -34,13 +34,13 @@
                 double totaltax = 0;}
             @for (int i = 0; i < Model.Count(); i++)
             {
-                tax = Math.Round(Model[i].Price * Model[i].product.Tax / 100, 2);
+                tax = Math.Round(Model[i].Price * Model[i].Product.Tax / 100, 2);
                 totaltax += tax;
-                total += (m.Role == Role.Premium ? (Model[i].Price * Model[i].product.Discount / 100) : Model[i].Price) + totaltax;
+                total += (m.Role == Role.Premium ? (Model[i].Price * Model[i].Product.Discount / 100) : Model[i].Price) + totaltax;
                 <tr class="cartList-item">
                     @Html.HiddenFor(model => Model[i].Id)
                     <td class="cart-item-title">
-                        @Html.DisplayFor(model => Model[i].product.ProductName)
+                        @Html.DisplayFor(model => Model[i].Product.ProductName)
                     </td>
                     <td class="cart-item-amount">
                         @Html.DisplayFor(model => Model[i].Amount)
@@ -51,7 +51,7 @@
                     @if (m.Role == Role.Premium)
                     {
                         <td>
-                            @Html.DisplayFor(model => Model[i].product.Discount)
+                            @Html.DisplayFor(model => Model[i].Product.Discount)
                         </td>
                     }
                     <td class="cart-item-price">
