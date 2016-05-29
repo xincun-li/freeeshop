@@ -222,6 +222,12 @@
     <Content Include="Content\raty\star-off.png" />
     <Content Include="Content\raty\star-on-big.png" />
     <Content Include="Content\raty\star-on.png" />
+    <Content Include="Image\eshop2.png" />
+    <Content Include="Image\eshop3.png" />
+    <Content Include="Image\eshop4.png" />
+    <Content Include="Image\eshop5.png" />
+    <Content Include="Image\eshop6.png" />
+    <Content Include="Image\eshop7.png" />
     <Content Include="Image\reg.jpg" />
     <Content Include="Content\Search.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
