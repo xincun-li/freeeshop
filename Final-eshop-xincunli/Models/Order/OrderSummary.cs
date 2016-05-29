@@ -84,6 +84,11 @@ namespace Final_eshop_xincunli.Models
         [DataType(DataType.Currency)]
         public double TotalTax { get; set; }
 
+        [Required]
+        [DisplayName("Shipping Fee")]
+        [DataType(DataType.Currency)]
+        public double Shipping { get; set; }
+
         public virtual Member Member { get; set; }
 
         [DisplayName("Order Status")]

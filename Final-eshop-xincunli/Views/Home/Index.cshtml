@@ -1,10 +1,13 @@
 ﻿@model List<Final_eshop_xincunli.Models.Product>
 <style>
     .ProductImg {
-        height: 150px;
+        height: 75px;
     }
 </style>
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
+<h4>Once basis buyer consumes more than $1000.00, they will be upgrade to Premium member.</h4>
+<h4>The Premium member can buy special price goods and enjoy free shipping.</h4>
+<hr />
 @if (Model.Count > 0)
 {
     <div class="row">
@@ -17,7 +20,8 @@
                         <h3>@Html.LabelFor(modelItem => product.ProductName) : @Html.DisplayFor(modelItem => product.ProductName)</h3>
                         <p>@Html.LabelFor(modelItem => product.Category) : @Html.DisplayFor(modelItem => product.Category)</p>
                         <p>@Html.LabelFor(modelItem => product.ProductPrice) : @Html.DisplayFor(modelItem => product.ProductPrice)</p>
-                        <p>@Html.LabelFor(modelItem => product.Discount) : @Html.DisplayFor(modelItem => product.Discount)</p>
+                        <p>@Html.LabelFor(modelItem => product.Discount) : @Html.DisplayFor(modelItem => product.Discount)%</p>
+                        <p>@Html.LabelFor(modelItem => product.Shipping) : @Html.DisplayFor(modelItem => product.Shipping)</p>
                         <div class="display-field">
                             @if (product.ProductCount > 0)
                             {

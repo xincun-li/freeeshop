@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Final_eshop_xincunli.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,12 +18,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="~/Image/eshop7.png" height="42" />
+                @Html.ActionLink("Free EShop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Product Manage", "Product", "Manage", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Order Processing", "OrderProcess", "Member")</li>
+                    @if (User.Identity.IsAuthenticated && MemberManage.Get(User.Identity.Name).Role == Role.Seller)
+                    {
+                        <li>@Html.ActionLink("Product Manage", "Product", "Manage", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Order Processing", "OrderProcess", "Member")</li>
+                    }
                     <li><img src="~/Image/white-cart.png" width="42" height="42" /></li>
                     <li>@{Html.RenderAction("CartSummary", "Cart");}</li>
                 </ul>

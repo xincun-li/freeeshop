@@ -59,5 +59,27 @@ namespace Final_eshop_xincunli.Models
 
             }
         }
+
+        [DataType(DataType.Currency)]
+        [DisplayName("Shipping Fee")]
+        public double Shipping
+        {
+            get
+            {
+                if (Product != null)
+                {
+                    return Product.Shipping;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            set
+            {
+
+            }
+        }
     }
 }

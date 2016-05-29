@@ -72,8 +72,9 @@ namespace Final_eshop_xincunli.Controllers
             if (TryUpdateModel(order))
             {
                 order.OrderDetails = GetOrderDetails(member);
-                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price), 2);
                 order.TotalTax = CartItems.Sum(item => item.TaxPrice);
+                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price) + order.TotalTax, 2);
+                order.Shipping = member.Role == Role.Premium ? 0 : CartItems.Max(item => item.Shipping);
                 order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
                 StockSellOut(order);
@@ -171,13 +172,15 @@ namespace Final_eshop_xincunli.Controllers
             {
                 //Only Premium member have discount, otherwise no discount.
                 int discount = (member.Role == Role.Premium ? item.Product.Discount : 100);
-                double price = Math.Round(item.Price * discount / 100, 2);
+                //double shipping = (member.Role == Role.Premium ? 0 : item.Product.Shipping);
+                double price = Math.Round(item.Price * (100 - discount) / 100, 2);
                 return new OrderDetail
                 {
                     Product = db.Products.Find(item.Product.ProductId),
                     Price = price,
                     Discount = discount,
                     TaxPrice = Math.Round(item.Product.Tax * price, 2),
+                    Shipping = item.Product.Shipping,
                     Amount = item.Amount
                 };
             });

@@ -200,6 +200,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ajaxLoader.gif" />
+    <Content Include="Content\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -208,6 +213,7 @@
     <Content Include="Content\checkout.png" />
     <Content Include="Content\grid-0.4.3.css" />
     <Content Include="Content\grid-0.4.3.min.css" />
+    <Content Include="Content\myswitch.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\raty\cancel-off.png" />
     <Content Include="Content\raty\cancel-on.png" />
@@ -286,6 +292,8 @@
     <Content Include="Image\eShop-logo.png" />
     <Content Include="Image\goods.jpg" />
     <Content Include="Image\Register.png" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-theme.css.map" />

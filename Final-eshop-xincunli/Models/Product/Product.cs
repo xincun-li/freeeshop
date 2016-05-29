@@ -14,7 +14,7 @@ namespace Final_eshop_xincunli.Models
         public Product()
         {
             this.CreateDate = DateTime.Now;
-            this.Status = 0; //0:On-Sale; 1:Off-Sale
+            this.Status = "OnSale"; //0:On-Sale; 1:Off-Sale
         }
 
         /// <summary>
@@ -72,6 +72,13 @@ namespace Final_eshop_xincunli.Models
         /// <summary>
         /// 
         /// </summary>
+        [Required(ErrorMessage = "Please Enter Product Shipping Fee")]
+        [Display(Name = "Product Shipping Fee")]
+        public double Shipping { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Required(ErrorMessage = "Please Enter Product Count")]
         [Display(Name = "Product Count")]
         //[Range(1, 100, ErrorMessage = "The {0} must be a number between {1} and {2}.")]
@@ -85,7 +92,7 @@ namespace Final_eshop_xincunli.Models
         /// <summary>
         /// 
         /// </summary>
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// 

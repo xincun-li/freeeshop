@@ -37,6 +37,8 @@ namespace Final_eshop_xincunli.API
                 ProductCount = u.ProductCount,
                 Discount = u.Discount,
                 Tax = u.Tax,
+                Shipping = u.Shipping,
+                Status = u.Status,
                 ImagePath = u.ImagePath
             }).ToList();
 
@@ -67,8 +69,10 @@ namespace Final_eshop_xincunli.API
                 Category = p.Category,
                 Discount = p.Discount,
                 Tax = p.Tax,
+                Shipping = p.Shipping,
                 ProductPrice = p.ProductPrice,
                 ProductCount = p.ProductCount,
+                Status = p.Status,
                 ImagePath = p.ImagePath
             };
             //HttpContext.Current.Cache[keyPrefixProductId + id] = mpd;

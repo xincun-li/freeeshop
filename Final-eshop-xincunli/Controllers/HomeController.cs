@@ -17,7 +17,7 @@ namespace Final_eshop_xincunli.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Title = "My Product Store";
+            ViewBag.Title = "Welcome to free eshop platform.";
 
             return View(ProductManage.GetAllProducts());
             //return View();

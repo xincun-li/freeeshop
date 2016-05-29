@@ -25,18 +25,40 @@
                 <th>
                     @Html.DisplayNameFor(model => model[0].Product.Tax)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Product.Shipping)
+                </th>
             </tr>
         </thead>
         <tbody>
             @{
-                double total = 0;
+                double totalprice = 0;
+                double rawtotalprice = 0;
                 double tax = 0;
+                double shipping = 0;
+                double maxshipping = 0;
+                double rawprice = 0;
+                double price = 0;
                 double totaltax = 0;}
             @for (int i = 0; i < Model.Count(); i++)
             {
-                tax = Math.Round(Model[i].Price * Model[i].Product.Tax / 100, 2);
+                rawprice = Model[i].Price;
+                //If current user was a premium member, then will be charge after discount.
+                price = m.Role == Role.Premium ? (rawprice * (100 - Model[i].Product.Discount) / 100) : rawprice;
+                tax = Math.Round(price * Model[i].Product.Tax / 100, 2);
+
+                //Finding maximum shipping fee, an order only charge a maximum shipping fee.
+                if (maxshipping < Model[i].Product.Shipping)
+                {
+                    maxshipping = Model[i].Product.Shipping;
+                }
+                shipping = m.Role == Role.Premium ? 0 : maxshipping;
+
+                //Summary
                 totaltax += tax;
-                total += (m.Role == Role.Premium ? (Model[i].Price * Model[i].Product.Discount / 100) : Model[i].Price) + totaltax;
+                totalprice += price + tax;
+                rawtotalprice += rawprice + tax;
+
                 <tr class="cartList-item">
                     @Html.HiddenFor(model => Model[i].Id)
                     <td class="cart-item-title">
@@ -57,26 +79,34 @@
                     <td class="cart-item-price">
                         <span class="price">@tax</span>
                     </td>
+                    <td class="cart-item-price">
+                        <span class="price">@shipping</span>
+                    </td>
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <span class="cartTotal">Tax of: $@Math.Round(totaltax, 2)</span>
                 </td>
             </tr>
             <tr>
-                <td colspan="5">
-                    <span class="cartTotal">Order Total: $@Math.Round(total, 2)</span>
+                <td colspan="6">
+                    <span class="cartTotal">Shipping fee of: $@Math.Round(shipping, 2) <del>$@Math.Round(maxshipping, 2)</del></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <span class="cartTotal">Order Total: $@Math.Round(totalprice + shipping, 2) <del>$@Math.Round(rawtotalprice + maxshipping, 2)</del></span>
                 </td>
             </tr>
         </tfoot>
     </table>
-                        }
-                        else
-                        {
-                            <p class="notContent">
-                                No Products
-                            </p>
-                        }
+                }
+                else
+                {
+                    <p class="notContent">
+                        No Products
+                    </p>
+                }

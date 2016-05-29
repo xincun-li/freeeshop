@@ -10,6 +10,8 @@
         public int Discount { get; set; }
         public double ProductPrice { get; set; }
         public int ProductCount { get; set; }
+        public double Shipping { get; set; }
         public string ImagePath { get; set; }
+        public string Status { get; set; }
     }
 }

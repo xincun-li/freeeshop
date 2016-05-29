@@ -6,7 +6,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/grid-0.4.3.min.css" rel="stylesheet" type="text/css">
-
+    <link href="~/Content/myswitch.css" rel="stylesheet" type="text/css">
     <script src="~/Scripts/jquery-2.2.3.min.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/Scripts/grid-0.4.3.min.js" type="text/javascript"></script>
@@ -46,6 +46,8 @@
             $("#ProductSEOName").val("");
             $("#Discount").val("");
             $("#Tax").val("");
+            $("#Shipping").val("");
+            $("#ProductStatus").prop("checked", true);
             $("#productModal").modal("show");
         }
 
@@ -63,6 +65,8 @@
                     $("#ProductSEOName").val(data.ProductSEOName);
                     $("#Discount").val(data.Discount);
                     $("#Tax").val(data.Tax);
+                    $("#Shipping").val(data.Shipping);
+                    $("#ProductStatus").prop("checked", data.Status=="OnSale"?true:false);
                     $("#productModal").modal("show");
                 })
                 .fail(function () {
@@ -81,6 +85,8 @@
             $("#ProductSEOName").val(e.data.record.ProductSEOName);
             $("#Discount").val(e.data.record.Discount);
             $("#Tax").val(e.data.record.Tax);
+            $("#Shipping").val(e.data.record.Shipping);
+            $("#ProductStatus").prop("checked", e.data.record.Status == "OnSale" ? true : false);
             $("#productModal").modal("show");
         }
         function Save() {
@@ -93,7 +99,9 @@
                     ProductCount: $("#ProductCount").val(),
                     ProductSEOName: $("#ProductSEOName").val(),
                     Discount: $("#Discount").val(),
-                    Tax: $("#Tax").val()
+                    Tax: $("#Tax").val(),
+                    Shipping: $("#Shipping").val(),
+                    Status: $("#ProductStatus").prop("checked")?"OnSale":"OffSale"
                 }
             })
                 .done(function () {
@@ -105,6 +113,7 @@
                     $("#productModal").modal("hide");
                 });
         }
+
         function Remove(e) {
             $.ajax({
                 url: "/api/Product/" + e.data.id, type: "DELETE"
@@ -150,7 +159,7 @@
                 }
 
                 $.ajax(settings).done(function (response) {
-                    console.log(response);
+                    //console.log(response);
 
                     $("#ImagePath").attr("src", "/Content/Uploads/" + $.parseJSON(response).message);
                 });
@@ -175,6 +184,8 @@
                     { field: "ProductCount", title: "Product Count", sortable: true },
                     { field: "Discount", title: "Discount", sortable: true },
                     { field: "Tax", title: "Tax", sortable: true },
+                    { field: "Shipping", title: "Shipping", sortable: true },
+                    { field: "Status", title: "Status", sortable: true },
                     { title: "Upload", field: "Upload", width: 60, type: "icon", icon: "glyphicon-camera", tooltip: "Image", events: { "click": ShowImage } },
                     { title: "View", field: "View", width: 54, type: "icon", icon: "glyphicon-zoom-in", tooltip: "View", events: { "click": View } },
                     { title: "Edit", field: "Edit", width: 54, type: "icon", icon: "glyphicon-pencil", tooltip: "Edit", events: { "click": Edit } },
@@ -196,7 +207,7 @@
                     $('#ImagePath').attr('src', fr.result);
                 }
                 fr.readAsDataURL(input.files[0]);
-            } 
+            }
         }
 
         function tog(v) { return v ? 'addClass' : 'removeClass'; }
@@ -214,7 +225,7 @@
 <body>
 
     <div class="container fill">
-        <h2>My Product Store</h2>
+        <h2>Prouduct List</h2>
         <br />
         <div class="row">
             <div class="col-md-3">
@@ -265,12 +276,24 @@
                             <input type="text" class="form-control" id="ProductCount" placeholder="Enter Product Count">
                         </div>
                         <div class="form-group">
-                            <label for="ProductPrice">Discount Rates</label>
+                            <label for="Discount">Discount Rates</label>
                             <input type="text" class="form-control" id="Discount" placeholder="Enter Discount rates">
                         </div>
                         <div class="form-group">
-                            <label for="ProductCount">Tax Rates</label>
+                            <label for="Tax">Tax Rates</label>
                             <input type="text" class="form-control" id="Tax" placeholder="Enter Tax rates">
+                        </div>
+                        <div class="form-group">
+                            <label for="Shipping">Shipping Fee</label>
+                            <input type="text" class="form-control" id="Shipping" placeholder="Enter Shipping Fee">
+                        </div>
+                        <div class="form-group">
+                            <label for="Status">Sale Status</label>
+                            <br />
+                            <label class="switch">
+                                <input type="checkbox" id="ProductStatus" checked>
+                                <div class="slider round"></div>
+                            </label>
                         </div>
                     </form>
                 </div>
@@ -298,7 +321,7 @@
                         </div>
                         <div>
                             <label for="file" id="ImageTip">Update Image:</label>
-                            <input type="file" name="file" id="UploadProductImage" style="width: 100%;" onchange="preview(this);"/>
+                            <input type="file" name="file" id="UploadProductImage" style="width: 100%;" onchange="preview(this);" />
                         </div>
                     </form>
                 </div>

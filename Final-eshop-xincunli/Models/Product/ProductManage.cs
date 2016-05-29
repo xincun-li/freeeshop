@@ -40,6 +40,8 @@ namespace Final_eshop_xincunli.Models
                     product.ProductSEOName = p.ProductSEOName;
                     product.Discount = p.Discount;
                     product.Tax = p.Tax;
+                    product.Shipping = p.Shipping;
+                    product.Status = p.Status;
                     product.SellerId = db.MemberShips.First(m => m.Email == HttpContext.Current.User.Identity.Name).Id;//MemberManage.Get(HttpContext.Current.User.Identity.Name).Id;
                     db.Products.Add(product);
                     db.SaveChanges();
@@ -56,6 +58,7 @@ namespace Final_eshop_xincunli.Models
             using (var db = new ShopContext())
             {
                 var query = from u in db.Products
+                            where u.Status == "OnSale"
                             orderby u.ProductId ascending
                             select u;
 
@@ -81,8 +84,10 @@ namespace Final_eshop_xincunli.Models
                                    Category = u.Category,
                                    ProductPrice = u.ProductPrice,
                                    ProductCount = u.ProductCount,
+                                   Status = u.Status,
                                    Discount = u.Discount,
-                                   Tax = u.Tax
+                                   Tax = u.Tax,
+                                   Shipping = u.Shipping
                                }).AsQueryable();
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
@@ -121,8 +126,10 @@ namespace Final_eshop_xincunli.Models
                     Category = p.Category,
                     ProductPrice = p.ProductPrice,
                     ProductCount = p.ProductCount,
+                    Status = p.Status,
                     Discount = p.Discount,
-                    Tax = p.Tax
+                    Tax = p.Tax,
+                    Shipping = p.Shipping
                 }).ToList();
             }
         }
@@ -182,9 +189,14 @@ namespace Final_eshop_xincunli.Models
                 db.Products.Attach(product);
                 var entry = db.Entry(product);
                 entry.Entity.ProductName = p.ProductName;
+                entry.Entity.ProductSEOName = p.ProductSEOName;
                 entry.Entity.Category = p.Category;
                 entry.Entity.ProductPrice = p.ProductPrice;
                 entry.Entity.ProductCount = p.ProductCount;
+                entry.Entity.Discount = p.Discount;
+                entry.Entity.Tax = p.Tax;
+                entry.Entity.Shipping = p.Shipping;
+                entry.Entity.Status = p.Status;
                 db.SaveChanges();
 
                 return true;
