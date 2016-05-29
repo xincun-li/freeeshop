@@ -24,6 +24,7 @@
                 @Html.HiddenFor(model => cartItem.Product.ProductId)
                 <td class="cart-item-title">
                     @Html.DisplayFor(modelItem => cartItem.Product.ProductName)
+                    <img height="40px" src="~/Content/Uploads/@Html.DisplayFor(model => cartItem.Product.ImagePath)" alt=@Html.DisplayFor(model => cartItem.Product.ProductName)>
                 </td>
                 <td class="cart-item-amount">
                     @Html.DisplayFor(model => cartItem.Amount)

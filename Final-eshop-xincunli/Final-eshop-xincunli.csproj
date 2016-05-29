@@ -211,6 +211,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cart.png" />
     <Content Include="Content\checkout.png" />
+    <Content Include="Content\emailtemplate.html" />
     <Content Include="Content\grid-0.4.3.css" />
     <Content Include="Content\grid-0.4.3.min.css" />
     <Content Include="Content\myswitch.css" />
@@ -341,10 +342,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Member\AccountMenu.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
-    <Content Include="Views\Member\OrderHistory.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\UserProfile.cshtml" />
     <Content Include="Views\Cart\CartList.cshtml" />

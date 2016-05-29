@@ -18,7 +18,9 @@ namespace Final_eshop_xincunli.Controllers
         public ActionResult CheckOut()
         {
             if (CartItems.Count <= 0)
+            {
                 return RedirectToAction("Index", "Cart");
+            }
             return View();
         }
 
@@ -44,7 +46,9 @@ namespace Final_eshop_xincunli.Controllers
         public ActionResult Confirm(FormCollection form)
         {
             if (CartItems.Count <= 0)
+            {
                 return RedirectToAction("Index", "Cart");
+            }
             var order = new OrderSummary();
             order.OrderDate = DateTime.Now;
 
@@ -65,7 +69,9 @@ namespace Final_eshop_xincunli.Controllers
         public ActionResult Finish(FormCollection form)
         {
             if (CartItems.Count <= 0)
+            {
                 return RedirectToAction("Index", "Cart");
+            }
             var order = new OrderSummary();
             var member = db.MemberShips.First(m => m.Email == User.Identity.Name);
             order.OrderDate = DateTime.Now;
@@ -81,7 +87,6 @@ namespace Final_eshop_xincunli.Controllers
                 db.Orders.Add(order);
                 db.SaveChanges();
                 CartItems.Clear();
-                Session["TotalCount-" + User.Identity.Name] = 0;
                 TempData["OrderId"] = order.Id;
                 SendOrderMail(order);
 
@@ -133,7 +138,7 @@ namespace Final_eshop_xincunli.Controllers
         {
             try
             {
-                string mailBody = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/FinishedOrderMail.html"));
+                string mailBody = System.IO.File.ReadAllText(Server.MapPath("~/Content/emailtemplate.html"));
                 mailBody = mailBody.Replace("{{OrderId}}", order.Id.ToString());
                 mailBody = mailBody.Replace("{{ContactName}}", order.ContactName);
                 mailBody = mailBody.Replace("{{ContactAddress}}", order.Zipcode +

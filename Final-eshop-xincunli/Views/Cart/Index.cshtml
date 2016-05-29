@@ -1,19 +1,19 @@
 ﻿@using Final_eshop_xincunli.Models;
 @model List<Final_eshop_xincunli.Models.CartItem>
-
 @{
     ViewBag.Title = "Shopping Cart";
 }
 @section header{
-
 }
 <h2>Shopping Cart</h2>
 <div id="cartContent">
     <div id="errorMessageContent"></div>
-    @if (Session["CartItems-" + User.Identity.Name] != null && (Session["CartItems-" + User.Identity.Name] as List<CartItem>).Count() >0)
+    @if (Session["CartItems"] != null && (Session["CartItems"] as List<CartItem>).Count() > 0)
     {
         @Html.Partial("CartList", Model)
-    }else{
+    }
+    else
+    {
         <p class="notContent">Empty cart</p>
     }
 </div>
