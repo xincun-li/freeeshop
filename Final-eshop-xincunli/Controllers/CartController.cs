@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Threading;
-using Final_eshop_xincunli.Models;
+using Final_eshop_entities.Models;
 
 namespace Final_eshop_xincunli.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Final_eshop_xincunli.Models;
+using Final_eshop_entities.Models;
 
 namespace Final_eshop_xincunli.Filters
 {

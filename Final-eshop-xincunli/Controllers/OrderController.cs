@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Net.Mail;
-using Final_eshop_xincunli.Models;
-using Final_eshop_xincunli.Filters;
-using Final_eshop_xincunli.Models.ViewModel;
+using Final_eshop_entities.Models;
+using Final_eshop_entities.Models.ViewModel;
 using System.Configuration;
 using System.Web;
 

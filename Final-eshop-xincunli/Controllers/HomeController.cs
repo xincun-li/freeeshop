@@ -1,7 +1,4 @@
-﻿using Final_eshop_xincunli.Models;
-using System;
-using System.Web;
-using System.Web.Caching;
+﻿using Final_eshop_entities.Models;
 using System.Web.Mvc;
 
 namespace Final_eshop_xincunli.Controllers

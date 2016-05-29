@@ -1,4 +1,4 @@
-﻿using Final_eshop_xincunli.Models;
+﻿using Final_eshop_entities.Models;
 
 namespace Final_eshop_xincunli.Filters
 {

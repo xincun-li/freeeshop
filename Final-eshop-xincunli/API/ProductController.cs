@@ -1,16 +1,14 @@
 ﻿using Final_eshop_xincunli.Filters;
-using Final_eshop_xincunli.Models;
-using Final_eshop_xincunli.Models.DTO;
+using Final_eshop_entities.Models;
+using Final_eshop_entities.Models.DTO;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Final_eshop_xincunli.API
 {

@@ -1,5 +1,5 @@
-﻿using Final_eshop_xincunli.Migrations;
-using Final_eshop_xincunli.Models;
+﻿using Final_eshop_entities.Migrations;
+using Final_eshop_entities.Models;
 using System.Data.Entity;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;

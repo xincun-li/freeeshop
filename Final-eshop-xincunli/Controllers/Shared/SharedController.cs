@@ -1,5 +1,5 @@
 ﻿
-using Final_eshop_xincunli.Models.ViewModel;
+using Final_eshop_entities.Models.ViewModel;
 using System.Linq;
 using System.Web.Mvc;
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Text.RegularExpressions;
-using Final_eshop_xincunli.Models;
+using Final_eshop_entities.Models;
 
 namespace Final_eshop_xincunli.Controllers
 {

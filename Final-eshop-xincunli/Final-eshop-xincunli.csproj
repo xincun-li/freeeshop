@@ -165,11 +165,6 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\Shared\ErrorController.cs" />
     <Compile Include="Controllers\Shared\SharedController.cs" />
-    <Compile Include="Extension\CollectionExtension.cs" />
-    <Compile Include="Extension\CreditAuthorizationClient.cs" />
-    <Compile Include="Extension\SelectListItemHelper.cs" />
-    <Compile Include="Extension\SortHelper.cs" />
-    <Compile Include="Extension\Utils.cs" />
     <Compile Include="Filters\AdministratorAttribute.cs" />
     <Compile Include="Filters\AllowEditAttribute.cs" />
     <Compile Include="Filters\AllowEditMemberProfileAttribute.cs" />
@@ -177,25 +172,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Cart\CartItem.cs" />
-    <Compile Include="Models\Member\MemberDTO.cs" />
-    <Compile Include="Models\Member\MemberManage.cs" />
-    <Compile Include="Models\Order\OrderManage.cs" />
-    <Compile Include="Models\Order\OrderDTO.cs" />
-    <Compile Include="Models\Product\Product.cs" />
-    <Compile Include="Models\Product\ProductManage.cs" />
-    <Compile Include="Models\Product\ProductDTO.cs" />
-    <Compile Include="Models\IProduct.cs" />
-    <Compile Include="Models\ISearch.cs" />
-    <Compile Include="Models\Member\Member.cs" />
-    <Compile Include="Models\Member\MemberLoginView.cs" />
-    <Compile Include="Models\Order\OrderDetail.cs" />
-    <Compile Include="Models\Order\OrderSummary.cs" />
-    <Compile Include="Models\Order\OrderStatus.cs" />
-    <Compile Include="Models\ShopContext.cs" />
-    <Compile Include="Models\ViewModel\NavigaterViewModel.cs" />
-    <Compile Include="Models\ViewModel\OrderConfirmViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +356,12 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Final-eshop-entities\Final-eshop-entities.csproj">
+      <Project>{e2588815-5ca9-4a73-b581-fcc43b35580d}</Project>
+      <Name>Final-eshop-entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

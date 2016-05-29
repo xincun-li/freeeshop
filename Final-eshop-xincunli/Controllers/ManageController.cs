@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Drawing;
-using Final_eshop_xincunli.Models;
+using Final_eshop_entities.Models;
 using Final_eshop_xincunli.Filters;
 
 namespace Final_eshop_xincunli.Controllers
