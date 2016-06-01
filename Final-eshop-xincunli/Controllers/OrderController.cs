@@ -78,8 +78,8 @@ namespace Final_eshop_xincunli.Controllers
             {
                 order.OrderDetails = GetOrderDetails(member);
                 order.TotalTax = CartItems.Sum(item => item.TaxPrice);
-                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price) + order.TotalTax, 2);
                 order.Shipping = member.Role == Role.Premium ? 0 : CartItems.Max(item => item.Shipping);
+                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price) + order.TotalTax, 2) + order.Shipping;
                 order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
                 StockSellOut(order);
@@ -90,7 +90,9 @@ namespace Final_eshop_xincunli.Controllers
                 SendOrderMail(order);
 
                 CheckAndUpgradeMember(order.Member);
-                return RedirectToAction("Finish");
+
+                //Call Pay gateway
+                return RedirectToAction("InitiateCreditTransaction", new { transAmount = order.TotalPrice, orderId = order.Id });
             }
             return View("CheckOut");
 
@@ -190,13 +192,13 @@ namespace Final_eshop_xincunli.Controllers
             });
         }
 
-        public ActionResult InitiateCreditTransaction()
+        public ActionResult InitiateCreditTransaction(double transAmount, int orderId)
         {
             //Assign the values for the properties we need to pass to the service
             String AppId = ConfigurationManager.AppSettings["CreditAppId"];
             String SharedKey = ConfigurationManager.AppSettings["CreditAppSharedKey"];
-            String AppTransId = "20";
-            String AppTransAmount = "12.50";
+            String AppTransId = orderId.ToString();// "20";
+            String AppTransAmount = transAmount.ToString();//"12.50";
 
             // Hash the values so the server can verify the values are original
             String hash = HttpUtility.UrlEncode(CreditAuthorizationClient.GenerateClientRequestHash(SharedKey, AppId, AppTransId, AppTransAmount));
