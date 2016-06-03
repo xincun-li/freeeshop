@@ -5,7 +5,15 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right in-line">
+        @if (MemberManage.Get(User.Identity.Name).Role == Role.Premium)
+        {
+            <li><img src="~/Image/premium.png" width="42" height="42" /></li>
+        }
+        else if (MemberManage.Get(User.Identity.Name).Role == Role.Seller)
+        {
+            <li><img src="~/Image/seller.png" width="42" height="42" /></li>
+        }
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Info", "Member", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
