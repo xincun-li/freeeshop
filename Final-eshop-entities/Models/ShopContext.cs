@@ -9,8 +9,8 @@ namespace Final_eshop_entities.Models
 {
     public class ShopContext : DbContext
     {
-        public ShopContext() : base("MyConnectionString")
-        //public ProductContext() : base("AzureConnectionString")
+        //public ShopContext() : base("MyConnectionString")
+        public ShopContext() : base("AzureConnectionString")
         {
 
         }
