@@ -161,7 +161,6 @@
     <Compile Include="Models\Product\ProductDTO.cs" />
     <Compile Include="Models\Product\ProductManage.cs" />
     <Compile Include="Models\ShopContext.cs" />
-    <Compile Include="Models\ViewModel\NavigaterViewModel.cs" />
     <Compile Include="Models\ViewModel\OrderConfirmViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
