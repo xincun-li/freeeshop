@@ -16,7 +16,16 @@
         {
             <div class="col-sm-4 col-md-3">
                 <div class="thumbnail">
-                    <img class="ProductImg" src="~/Content/Uploads/@Html.DisplayFor(modelItem => product.ImagePath)" alt=@Html.DisplayFor(modelItem => product.ProductName)>
+                    @if (product.ImagePath.IsEmpty())
+                    {
+
+                        <img class="ProductImg" src="~/Image/goods.jpg" alt=@Html.DisplayFor(modelItem => product.ProductName)>
+                    }
+                    else
+                    {
+                        <img class="ProductImg" src="~/Content/Uploads/@Html.DisplayFor(modelItem => product.ImagePath)" alt=@Html.DisplayFor(modelItem => product.ProductName)>
+
+                    }
                     <div class="caption">
                         <h6>@Html.LabelFor(modelItem => product.ProductName) : @Html.DisplayFor(modelItem => product.ProductName)</h6>
                         <h6>
@@ -35,7 +44,7 @@
                             }
                             else
                             {
-                                <span class="warning">SOLD OUT.</span>
+                                <button id="cart-add-button" class="btn btn-warning" type="submit">SOLD OUT.</button>
                             }
                         </div>
                     </div>

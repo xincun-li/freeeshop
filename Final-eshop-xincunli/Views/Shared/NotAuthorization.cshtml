@@ -4,10 +4,10 @@
 <p class="error-message">
     @if (ViewData["errorMessage"] == null)
     {
-        @:Sorry, you cannot using this pages, please login as Seller.
+        @:<h1>Sorry, you cannot using this pages, please login as Seller.</h1>
     }
     else
     {
-        @ViewData["errorMessage"].ToString()
+        @:<h3>ViewData["errorMessage"].ToString()</h3>
     }
 </p>

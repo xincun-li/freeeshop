@@ -79,10 +79,10 @@ namespace Final_eshop_xincunli.Controllers
                 order.OrderDetails = GetOrderDetails(member);
                 order.TotalTax = CartItems.Sum(item => item.TaxPrice);
                 order.Shipping = member.Role == Role.Premium ? 0 : CartItems.Max(item => item.Shipping);
-                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price) + order.TotalTax, 2) + order.Shipping;
+                order.TotalPrice = Math.Round(CartItems.Sum(item => item.Price) + order.TotalTax + order.Shipping, 2);
                 order.Member = member;
                 order.OrderStatus = db.OrderStatuses.First(os => os.Id == 1);
-                StockSellOut(order);
+                StockOut(order);
                 db.Orders.Add(order);
                 db.SaveChanges();
                 CartItems.Clear();
@@ -116,7 +116,7 @@ namespace Final_eshop_xincunli.Controllers
             }
         }
 
-        private void StockSellOut(OrderSummary order)
+        private void StockOut(OrderSummary order)
         {
             foreach (var od in order.OrderDetails)
             {
@@ -154,8 +154,8 @@ namespace Final_eshop_xincunli.Controllers
                 smtpSever.EnableSsl = true;
                 var mailMsg = new MailMessage
                 {
-                    From = new MailAddress("exile1030@gmail.com"),
-                    Subject = "(FreeShop)Thanks for order our product.",
+                    From = new MailAddress("freeeshop.e583@gmail.com"),
+                    Subject = "(FreeEshop)Thanks for order our product.",
                     Body = mailBody,
                     IsBodyHtml = true
                 };
@@ -168,8 +168,6 @@ namespace Final_eshop_xincunli.Controllers
             {
                 return false;
             }
-
-
         }
 
         private List<OrderDetail> GetOrderDetails(Member member)

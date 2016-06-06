@@ -163,19 +163,13 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\Shared\ErrorController.cs" />
-    <Compile Include="Controllers\Shared\SharedController.cs" />
     <Compile Include="Filters\AdministratorAttribute.cs" />
-    <Compile Include="Filters\AllowEditAttribute.cs" />
-    <Compile Include="Filters\AllowEditMemberProfileAttribute.cs" />
-    <Compile Include="Filters\AllowViewOrderAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\ajaxLoader.gif" />
     <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
@@ -185,28 +179,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\cart.png" />
-    <Content Include="Content\checkout.png" />
     <Content Include="Content\emailtemplate.html" />
     <Content Include="Content\grid-0.4.3.css" />
     <Content Include="Content\grid-0.4.3.min.css" />
     <Content Include="Content\myswitch.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\raty\cancel-off.png" />
-    <Content Include="Content\raty\cancel-on.png" />
-    <Content Include="Content\raty\star-half.png" />
-    <Content Include="Content\raty\star-off-big.png" />
-    <Content Include="Content\raty\star-off.png" />
-    <Content Include="Content\raty\star-on-big.png" />
-    <Content Include="Content\raty\star-on.png" />
-    <Content Include="Image\eshop2.png" />
-    <Content Include="Image\eshop3.png" />
-    <Content Include="Image\eshop4.png" />
-    <Content Include="Image\eshop5.png" />
-    <Content Include="Image\eshop6.png" />
     <Content Include="Image\eshop7.png" />
+    <Content Include="Image\goods.jpg" />
     <Content Include="Image\premium.png" />
-    <Content Include="Image\reg.jpg" />
     <Content Include="Content\Search.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -274,9 +254,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Image\eShop-logo.png" />
-    <Content Include="Image\goods.jpg" />
-    <Content Include="Image\Register.png" />
     <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -333,7 +310,6 @@
     <Content Include="Views\Shared\NotAuthorization.cshtml" />
     <Content Include="Views\Shared\OrderNavigator.cshtml" />
     <Content Include="Views\Shared\OrderProductItems.cshtml" />
-    <Content Include="Views\Shared\Pager.cshtml" />
     <Content Include="Views\Manage\Product.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Member\MemberInfo.cshtml" />
@@ -346,7 +322,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Uploads\" />
-    <Folder Include="Views\Background\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

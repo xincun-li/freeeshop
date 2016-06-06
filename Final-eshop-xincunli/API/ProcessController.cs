@@ -18,7 +18,7 @@ namespace Final_eshop_xincunli.API
         public HttpResponseMessage Post(OrderDTO order)
         {
             OrderManage.UpdateOrder(order);
-            return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Has deleted." });
+            return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Has updated." });
         }
     }
 }

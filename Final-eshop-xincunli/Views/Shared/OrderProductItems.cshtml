@@ -32,13 +32,17 @@
         </thead>
         <tbody>
             @{
+                //After discount total price.
                 double totalprice = 0;
+                //Raw price
                 double rawtotalprice = 0;
                 double tax = 0;
                 double shipping = 0;
+                //Multiple product only taking maximum shipping fee.
                 double maxshipping = 0;
                 double rawprice = 0;
                 double price = 0;
+                //Total Tax
                 double totaltax = 0;}
             @for (int i = 0; i < Model.Count(); i++)
             {

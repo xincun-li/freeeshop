@@ -21,17 +21,17 @@ namespace Final_eshop_xincunli.API
             var file = HttpContext.Current.Request.Files[0];
             //for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
             //{
-                //HttpPostedFile file = HttpContext.Current.Request.Files[i];
-                var extension = new FileInfo(file.FileName).Extension;
-                saveFileName = Guid.NewGuid().ToString() + extension;
+            //HttpPostedFile file = HttpContext.Current.Request.Files[i];
+            var extension = new FileInfo(file.FileName).Extension;
+            saveFileName = Guid.NewGuid().ToString() + extension;
 
-                if (file != null && file.ContentLength > 0)
-                {
-                    string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Uploads"), saveFileName);
+            if (file != null && file.ContentLength > 0)
+            {
+                string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Uploads"), saveFileName);
 
-                    file.SaveAs(filePath);
+                file.SaveAs(filePath);
 
-                    ProductManage.UpdateImagePath(id, saveFileName);
+                ProductManage.UpdateImagePath(id, saveFileName);
 
 
                 HttpContext.Current.Cache.Remove(keyPrefixProductId + id);
@@ -40,7 +40,7 @@ namespace Final_eshop_xincunli.API
             }
             //}
 
-            return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = saveFileName});
+            return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = saveFileName });
         }
     }
 }
