@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Final_eshop_entities.Models
 {
@@ -14,7 +11,7 @@ namespace Final_eshop_entities.Models
         public Product()
         {
             this.CreateDate = DateTime.Now;
-            this.Status = "OnSale"; //0:On-Sale; 1:Off-Sale
+            this.Status = "OnSale"; //OnSale; OffSale
         }
 
         /// <summary>
@@ -29,7 +26,6 @@ namespace Final_eshop_entities.Models
 
         [Required(ErrorMessage = "Please Enter Product Category")]
         [Display(Name = "Product Category")]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string Category { get; set; }
 
         /// <summary>
@@ -37,7 +33,6 @@ namespace Final_eshop_entities.Models
         /// </summary>
         [Required(ErrorMessage = "Please Enter Product Name")]
         [Display(Name = "Product Name")]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string ProductName { get; set; }
 
         /// <summary>
@@ -45,7 +40,6 @@ namespace Final_eshop_entities.Models
         /// </summary>
         [Required(ErrorMessage = "Please Enter Product SEO Name")]
         [Display(Name = "Product SEO Name")]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string ProductSEOName { get; set; }
 
         /// <summary>
@@ -81,7 +75,6 @@ namespace Final_eshop_entities.Models
         /// </summary>
         [Required(ErrorMessage = "Please Enter Product Count")]
         [Display(Name = "Product Count")]
-        //[Range(1, 100, ErrorMessage = "The {0} must be a number between {1} and {2}.")]
         public int ProductCount { get; set; }
 
 

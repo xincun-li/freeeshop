@@ -147,7 +147,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\IProduct.cs" />
-    <Compile Include="Models\ISearch.cs" />
     <Compile Include="Models\Member\Member.cs" />
     <Compile Include="Models\Member\MemberDTO.cs" />
     <Compile Include="Models\Member\MemberLoginView.cs" />
