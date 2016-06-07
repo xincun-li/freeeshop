@@ -36,7 +36,7 @@ namespace Final_eshop_xincunli.API
 
                 HttpContext.Current.Cache.Remove(keyPrefixProductId + id);
                 HttpContext.Current.Cache.Remove(keyAllProduct);
-                HttpResponse.RemoveOutputCacheItem("/Home/GetProducts");
+                HttpResponse.RemoveOutputCacheItem("/Home/Index");
             }
             //}
 

@@ -11,7 +11,7 @@ namespace Final_eshop_xincunli.API
     public class ProcessController : ApiController
     {
         /// <summary>
-        /// DELETE
+        /// Process Order
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

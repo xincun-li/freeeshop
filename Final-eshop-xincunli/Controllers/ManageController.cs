@@ -18,7 +18,7 @@ namespace Final_eshop_xincunli.Controllers
         
 
         [HttpGet]
-        //[OutputCache(CacheProfile = "StaticProduct")]
+        [OutputCache(CacheProfile = "StaticProduct")]
         public JsonResult GetProducts(int? page, int? limit, string sortBy, string direction, string searchString = null)
         {
             int total = 0;

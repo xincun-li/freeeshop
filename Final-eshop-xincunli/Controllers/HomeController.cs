@@ -5,13 +5,7 @@ namespace Final_eshop_xincunli.Controllers
 {
     public class HomeController : Controller
     {
-
-        [AllowAnonymous]
-        public ActionResult List()
-        {
-            return View(ProductManage.GetAllProducts());
-        }
-
+        [OutputCache(CacheProfile = "StaticProduct")]
         public ActionResult Index()
         {
             ViewBag.Title = "Welcome to free eshop platform.";

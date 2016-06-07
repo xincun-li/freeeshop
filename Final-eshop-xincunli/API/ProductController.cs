@@ -92,7 +92,7 @@ namespace Final_eshop_xincunli.API
             ProductManage.Save(p);
             HttpContext.Current.Cache.Remove(keyAllProduct);
             HttpContext.Current.Cache.Remove(keyPrefixProductId + p.ProductId);
-            HttpResponse.RemoveOutputCacheItem("/Home/GetProducts");
+            HttpResponse.RemoveOutputCacheItem("/Home/Index");
             return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Has added." });
         }
 
@@ -111,7 +111,7 @@ namespace Final_eshop_xincunli.API
             }
             HttpContext.Current.Cache.Remove(keyPrefixProductId + id);
             HttpContext.Current.Cache.Remove(keyAllProduct);
-            HttpResponse.RemoveOutputCacheItem("/Home/GetProducts");
+            HttpResponse.RemoveOutputCacheItem("/Home/Index");
             return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Has updated." });
         }
 
@@ -125,7 +125,7 @@ namespace Final_eshop_xincunli.API
             ProductManage.Remove(id);
             HttpContext.Current.Cache.Remove(keyPrefixProductId + id);
             HttpContext.Current.Cache.Remove(keyAllProduct);
-            HttpResponse.RemoveOutputCacheItem("/Home/GetProducts");
+            HttpResponse.RemoveOutputCacheItem("/Home/Index");
             return Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Has deleted." });
         }
     }

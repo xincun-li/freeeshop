@@ -25,7 +25,8 @@ namespace Final_eshop_xincunli.Controllers
 
         [Authorize]
         [HttpGet]
-        //[OutputCache(CacheProfile = "StaticProduct")]
+        //[OutputCache(CacheProfile = "StaticOrder")]
+        //If user's orders were enough frequently, cache will be a bottleneck of platform due to faster refresh cache. Hence we don't cache order.
         public JsonResult OrderHistory(int? page, int? limit, string sortBy, string direction, string searchString = null)
         {
             int total = 0;
@@ -49,7 +50,8 @@ namespace Final_eshop_xincunli.Controllers
 
         [Administrator]
         [HttpGet]
-        //[OutputCache(CacheProfile = "StaticProduct")]
+        //[OutputCache(CacheProfile = "StaticOrder")]
+        //If user's orders were enough frequently, cache will be a bottleneck of platform due to faster refresh cache. Hence we don't cache order.
         public JsonResult OrderSeller(int? page, int? limit, string sortBy, string direction, string searchString = null)
         {
             int total = 0;
@@ -64,16 +66,7 @@ namespace Final_eshop_xincunli.Controllers
             }
             return Json(new { records, total }, JsonRequestBehavior.AllowGet);
         }
-        
-        [Authorize]
-        public ActionResult OrderHistory(int p = 1, int status = 0)
-        {
-            return View(db.MemberShips.First(m => m.Email == User.Identity.Name)
-                                  .Orders.Where(o => status == 0 || o.OrderStatus.Id == status)
-                                  .OrderByDescending(o => o.OrderDate)
-                                  );
-        }
-        
+                
         public ActionResult Register()
         {
             return View();
@@ -99,7 +92,6 @@ namespace Final_eshop_xincunli.Controllers
                     member.Password = Utils.Md5Hash(salt + member.Password);
                     member.ConfirmPassword = member.Password;
                     MemberManage.Create(member);
-                    //return View("RegisterResult", member);
                     return RedirectToAction("Login", "Member");
                 }
                 catch (Exception ex)
